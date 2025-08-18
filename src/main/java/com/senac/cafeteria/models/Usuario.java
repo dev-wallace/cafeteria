@@ -1,16 +1,9 @@
 package com.senac.cafeteria.models;
 
+import jakarta.persistence.*;
 import java.util.List;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-
 import lombok.Data;
+import com.senac.cafeteria.models.enums.Role;
 
 @Entity
 @Data
@@ -27,6 +20,6 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private Role role;
     
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "cliente") // Corrigido para "cliente"
     private List<Pedido> pedidos;
 }

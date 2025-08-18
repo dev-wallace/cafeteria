@@ -1,20 +1,11 @@
 package com.senac.cafeteria.models;
 
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-
 import lombok.Data;
+import com.senac.cafeteria.models.enums.TipoEntrega;
 
 @Entity
 @Data
@@ -24,6 +15,7 @@ public class Pedido {
     private Long id;
     
     @ManyToOne
+    @JoinColumn(name = "cliente_id") // Adicionado para melhor controle
     private Usuario cliente;
     
     private LocalDateTime data;
@@ -35,6 +27,6 @@ public class Pedido {
     private BigDecimal taxaEntrega;
     private String comentario;
     
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemPedido> itens;
 }
