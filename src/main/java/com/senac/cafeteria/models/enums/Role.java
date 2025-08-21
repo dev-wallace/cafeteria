@@ -11,6 +11,6 @@ public enum Role {
     }
 
     public String getAuthority() {
-        return authority;
+        return authority; // ← Este método é ESSENCIAL
     }
 }

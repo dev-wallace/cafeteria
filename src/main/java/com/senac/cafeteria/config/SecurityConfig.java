@@ -19,25 +19,29 @@ public class SecurityConfig {
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
                 .requestMatchers("/", "/menu", "/cadastro", "/login").permitAll()
-                .requestMatchers("/carrinho/**", "/perfil").hasRole("CLIENTE")
-                .requestMatchers("/admin/**").hasRole("FUNCIONARIO")
+                .requestMatchers("/carrinho/**", "/perfil").hasAuthority("ROLE_CLIENTE")
+                .requestMatchers("/admin/**").hasAuthority("ROLE_FUNCIONARIO")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                .defaultSuccessUrl("/redirecionarPorRole", true)
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/redirecionarPorRole", true) // ← ESTA LINHA É CRÍTICA
+                .failureUrl("/login?error=true")
                 .permitAll()
             )
             .logout(logout -> logout
-                .logoutSuccessUrl("/")
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login?logout=true")
                 .permitAll()
-            );
+            )
+            .csrf(csrf -> csrf.disable());
 
         return http.build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
