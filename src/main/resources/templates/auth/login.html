@@ -58,7 +58,7 @@
         </div>
 
         <!-- Popup de Login - Oculto inicialmente -->
-        <div class="cdk-overlay-pane2" id="locationPopup2" style="display: none;">
+        <div class="cdk-overlay-pane2" id="locationPopup2">
             <div class="mat-dialog-container2">
                 <div class="gps-alert-box2">
                     <!-- Ícones decorativos fixos nos cantos -->
@@ -77,12 +77,12 @@
                         <button type="button" class="close-btn2" id="closePopupBtn2">Skip</button>
                     </div>
                     
-                    <div class="card-remove-wrapper3">
+                    <div class="card-remove-wrapper2">
                         <form th:action="@{/login}" method="post">
-                            <div class="input-box2">
-                                <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+                            <div class="input-box">
+                                <span class="icon"><i class="fa-solid fa-lock"></i></span>
                                 <input type="email" id="email" name="email" required>
-                                <label for="username">Email</label>
+                                <label for="email">Email</label>
                             </div>
 
                             <div class="input-box2">
@@ -108,20 +108,8 @@
             </div>
         </div>
 
-        <!-- Modal de Sucesso -->
-        <div id="successModal" class="modalSuccess" style="display: none;">
-            <div class="modalConteiner">
-                <div class="alert-box">
-                    <img src="images_homapage/Group 566.svg" alt="Estrela" class="icon-top-left-Success">
-                    <img src="images_homapage/Group45.svg" alt="Flor" class="icon-bottom-right-Success">
-                    <div class="card-text">
-                        <p class="text-center">Usuário cadastrado com sucesso</p>
-                    </div>
-                    <button id="closeSuccessModal" onclick="closeSuccessModal()">Fechar</button>
-                </div>
-            </div>
-        </div>
-        <div id="modalOverlay" style="display: none;"></div> 
+        
+        <div id="modalOverlay"></div> 
 
     </div>
 <script th:src="@{js/script.js}"></script>

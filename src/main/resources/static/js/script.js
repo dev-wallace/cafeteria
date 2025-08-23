@@ -1,5 +1,5 @@
 // Seleciona o overlay, popups e botões
-const overlay = document.getElementById("overlay");
+const overlay = document.getElementById("modalOverlay");
 const locationPopup = document.getElementById("locationPopup");
 const locationPopup2 = document.getElementById("locationPopup2");
 const signInBtn = document.getElementById("signInBtn"); 
