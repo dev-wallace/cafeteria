@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Cafeteria</title>
 
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-   <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" 
@@ -14,11 +14,9 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-
-
     <div class="wrapper">
         <div class="nav__logo">
-            <a href="../web/images_homapage/starbucks-logo.png"><img src="images_homapage/starbucks-logo.png" alt="starbucks-logo"></a>
+            <a th:href="@{/}"><img th:src="@{/images_homapage/starbucks-logo.png}" alt="starbucks-logo"></a>
         </div>
         <header class="nav">
             <nav>
@@ -44,26 +42,26 @@
                     Deixe o aroma do nosso café inspirar sua rotina e transforme suas manhãs em momentos especiais.</p>
                 <div class="social_midias">
                     <div class="social_midia">
-                        <a href="#"><img src="images_homapage/facebook.png" alt="Facebook"></a>
+                        <a href="#"><img th:src="@{/images_homapage/facebook.png}" alt="Facebook"></a>
                     </div>
                     <div class="social_midia">
-                        <a href="#"><img src="images_homapage/instagram.png" alt="Instagram"></a>
+                        <a href="#"><img th:src="@{/images_homapage/instagram.png}" alt="Instagram"></a>
                     </div>
                     <div class="social_midia">
-                        <a href="#"><img src="images_homapage/twitter.png" alt="Twitter"></a>
+                        <a href="#"><img th:src="@{/images_homapage/twitter.png}" alt="Twitter"></a>
                     </div>
                 </div> 
             </div>
-            <div class="mockup__image"><img src="images_homapage/frappuccino.png" alt="Frappuccino"></div>
+            <div class="mockup__image"><img th:src="@{/images_homapage/frappuccino.png}" alt="Frappuccino"></div>
         </div>
 
         <!-- Popup de Login - Oculto inicialmente -->
-        <div class="cdk-overlay-pane2" id="locationPopup2">
+        <div class="cdk-overlay-pane2" id="locationPopup2" style="display: none;">
             <div class="mat-dialog-container2">
                 <div class="gps-alert-box2">
                     <!-- Ícones decorativos fixos nos cantos -->
-                    <img src="images_homapage/Group45.svg" alt="Estrela" class="icon-top-left2">
-                    <img src="images_homapage/Group45.svg" alt="Flor" class="icon-bottom-right2">
+                    <img th:src="@{/images_homapage/Group45.svg}" alt="Estrela" class="icon-top-left2">
+                    <img th:src="@{/images_homapage/Group45.svg}" alt="Flor" class="icon-bottom-right2">
                     <div class="form-box">
                         <h2>Login</h2>
                     </div>
@@ -77,12 +75,13 @@
                         <button type="button" class="close-btn2" id="closePopupBtn2">Skip</button>
                     </div>
                     
-                    <div class="card-remove-wrapper2">
+                    <div class="card-remove-wrapper3">
                         <form th:action="@{/login}" method="post">
-                            <div class="input-box">
-                                <span class="icon"><i class="fa-solid fa-lock"></i></span>
-                                <input type="email" id="email" name="email" required>
-                                <label for="email">Email</label>
+                            <!-- CORREÇÃO CRÍTICA: name="username" em vez de name="email" -->
+                            <div class="input-box2">
+                                <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+                                <input type="email" id="username" name="username" required>
+                                <label for="username">Email</label>
                             </div>
 
                             <div class="input-box2">
@@ -103,16 +102,14 @@
                             </div>
                         </form>
                     </div>
-                
                 </div>
             </div>
         </div>
 
-        
-        <div id="modalOverlay"></div> 
+      
 
-    </div>
-<script th:src="@{js/script.js}"></script>
+   
+    <script th:src="@{/js/script.js}"></script>
 
     <script>
         // Script para controlar a exibição do popup de login
@@ -148,4 +145,4 @@
         });
     </script>
 </body>
-</html> 
+</html>

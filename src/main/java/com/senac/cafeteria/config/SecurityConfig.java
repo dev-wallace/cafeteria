@@ -21,7 +21,6 @@ public class SecurityConfig {
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/images_homapage/**", 
                                "/webjars/**", "/favicon.ico").permitAll()
                 .requestMatchers("/", "/menu", "/cadastro", "/login").permitAll()
-                // CORREÇÃO: Usar hasRole() em vez de hasAuthority() para roles com prefixo ROLE_
                 .requestMatchers("/carrinho/**", "/perfil").hasRole("CLIENTE")
                 .requestMatchers("/admin/**").hasRole("FUNCIONARIO")
                 .anyRequest().authenticated()
@@ -29,9 +28,7 @@ public class SecurityConfig {
             .formLogin(form -> form
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                 .defaultSuccessUrl("/redirecionarPorRole", true)
-                .successHandler(successHandler())
-                .failureUrl("/login?error=true")
+                .defaultSuccessUrl("/redirecionarPorRole", true) 
                 .permitAll()
             )
             .logout(logout -> logout
