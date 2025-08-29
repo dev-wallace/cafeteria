@@ -37,7 +37,7 @@
         </header>
         <div class="mockup__content">
             <div class="mockup__texts">
-                <h2 class="mockup__title">Frappuccino!</h2>
+                <h2 class="mockup__title">Coff & Co!</h2>
                 <p class="mockup__paragrafo">Impulsione sua produtividade e eleve seu humor com um copo de Starbucks pela manhã.
                     Deixe o aroma do nosso café inspirar sua rotina e transforme suas manhãs em momentos especiais.</p>
                 <div class="social_midias">
@@ -53,6 +53,53 @@
                 </div> 
             </div>
             <div class="mockup__image"><img th:src="@{/images_homapage/frappuccino.png}" alt="Frappuccino"></div>
+        </div>
+
+        <!-- Popup de Cadastro - Oculto inicialmente -->
+        <div class="cdk-overlay-pane" id="locationPopup" style="display: none;">
+            <div class="mat-dialog-container">
+                <div class="gps-alert-box">
+                    <!-- Ícones decorativos fixos nos cantos -->
+                    <img th:src="@{/images_homapage/Group45.svg}" alt="Estrela" class="icon-top-left">
+                    <img th:src="@{/images_homapage/Group45.svg}" alt="Flor" class="icon-bottom-right">
+                    <div class="form-box">
+                        <h2>Sign-up</h2>
+                    </div>
+                    
+                    <div class="card-remove-wrapper2">
+                        <form th:action="@{/cadastro}" method="post" id="registerForm"> 
+                            <div class="input-box">
+                                <span class="icon"><i class="fa-solid fa-user"></i></span>
+                                <input type="text" id="name" name="nome" required>
+                                <label for="name">Name</label>
+                            </div>
+
+                            <div class="input-box">
+                                <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+                                <input type="email" id="email" name="email" required>
+                                <label for="email">Email</label>
+                            </div>
+                            
+                            <div class="input-box">
+                                <span class="icon"><i class="fa-solid fa-lock"></i></span>
+                                <input type="password" id="senha" name="senha" required>
+                                <label for="senha">Password</label>
+                            </div>
+                            
+                            <div class="input-box">
+                                <span class="icon"><i class="fa-solid fa-map-marker-alt"></i></span>
+                                <input type="text" id="endereco" name="endereco" required>
+                                <label for="endereco">Address</label>
+                            </div>
+                            
+                            <button type="submit" class="btn">Register</button>
+                        </form>
+                    </div>
+                    <div class="close">
+                        <button type="button" class="close-btn" id="closePopupBtn">Skip</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Popup de Login - Oculto inicialmente -->
@@ -77,7 +124,6 @@
                     
                     <div class="card-remove-wrapper3">
                         <form th:action="@{/login}" method="post">
-                            <!-- CORREÇÃO CRÍTICA: name="username" em vez de name="email" -->
                             <div class="input-box2">
                                 <span class="icon"><i class="fa-solid fa-envelope"></i></span>
                                 <input type="email" id="username" name="username" required>
@@ -106,30 +152,66 @@
             </div>
         </div>
 
-      
+        <div id="modalOverlay" style="display: none;"></div> 
+    </div>
 
-   
     <script th:src="@{/js/script.js}"></script>
 
     <script>
-        // Script para controlar a exibição do popup de login
+        // Script para controlar a exibição dos popups
         document.addEventListener('DOMContentLoaded', function() {
             const signInBtn = document.getElementById('signInBtn');
+            const joinNowBtn = document.getElementById('joinNowBtn');
             const loginPopup = document.getElementById('locationPopup2');
-            const closePopupBtn = document.getElementById('closePopupBtn2');
+            const registerPopup = document.getElementById('locationPopup');
+            const closePopupBtn = document.getElementById('closePopupBtn');
+            const closePopupBtn2 = document.getElementById('closePopupBtn2');
             const modalOverlay = document.getElementById('modalOverlay');
+            const registerLink = document.getElementById('registerLink');
             
-            // Abrir popup de login
-            if (signInBtn) {
+            // Abrir popup de CADASTRO ao clicar no botão "Sign In"
+            if (signInBtn && registerPopup) {
                 signInBtn.addEventListener('click', function() {
+                    registerPopup.style.display = 'block';
+                    modalOverlay.style.display = 'block';
+                });
+            }
+
+              // Função para fechar todos os popups
+        function closeAllPopups() {
+            if (loginPopup) loginPopup.style.display = 'none';
+            if (registerPopup) registerPopup.style.display = 'none';
+            if (modalOverlay) modalOverlay.style.display = 'none';
+        }
+            
+            // Abrir popup de LOGIN ao clicar no botão "Join Now"
+            if (joinNowBtn && loginPopup) {
+                joinNowBtn.addEventListener('click', function() {
                     loginPopup.style.display = 'block';
                     modalOverlay.style.display = 'block';
                 });
             }
             
-            // Fechar popup de login
-            if (closePopupBtn) {
+            // Alternar entre popups (do login para cadastro)
+            if (registerLink && registerPopup && loginPopup) {
+                registerLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    loginPopup.style.display = 'none';
+                    registerPopup.style.display = 'block';
+                });
+            }
+            
+            // Fechar popup de cadastro
+            if (closePopupBtn && registerPopup) {
                 closePopupBtn.addEventListener('click', function() {
+                    registerPopup.style.display = 'none';
+                    modalOverlay.style.display = 'none';
+                });
+            }
+            
+            // Fechar popup de login
+            if (closePopupBtn2 && loginPopup) {
+                closePopupBtn2.addEventListener('click', function() {
                     loginPopup.style.display = 'none';
                     modalOverlay.style.display = 'none';
                 });
@@ -138,11 +220,22 @@
             // Fechar ao clicar fora do popup
             if (modalOverlay) {
                 modalOverlay.addEventListener('click', function() {
-                    loginPopup.style.display = 'none';
+                    if (loginPopup && loginPopup.style.display === 'block') {
+                        loginPopup.style.display = 'none';
+                    }
+                    if (registerPopup && registerPopup.style.display === 'block') {
+                        registerPopup.style.display = 'none';
+                    }
                     modalOverlay.style.display = 'none';
                 });
             }
+           // Fechar popups com a tecla ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeAllPopups();
+            }
         });
-    </script>
+    });
+</script>
 </body>
 </html>

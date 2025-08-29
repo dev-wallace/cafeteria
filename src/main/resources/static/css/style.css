@@ -264,28 +264,7 @@ body{
     justify-content: -betweenspace;
 
 }
- /*.mockup__frappuccino{
-    width: 14em;
-    height: 12em;
-   border-radius:2em 2em 0 0;
-    border-radius: var(--bs-border-radius-xxl);
-    margin: 0.2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    top: 0;
-}
-.mockup__frappuccino--pink{
-    background-color: var(--frapuccino-pink);
-}
-.mockup__frappuccino--green{
-    background-color: var(--frapuccino-green);
-}
 
-.mockup__frappuccino--red{
-    background-color: var(--frapuccino-red);
-}*/
 .mockup__frappuccino:hover img{
     transform: translateY(-1.5em)scale(1.1);
 
@@ -338,7 +317,7 @@ body{
    
     max-width: 80vw;
     width: 400px;
-    height: 500px;
+    height: 565px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -394,11 +373,12 @@ body{
    font-size: 14px;
 }
 
-/* Oculta o popup inicialmente 
+/* Oculta o popup inicialmente */
+
 .popup-hidden {
     display: none;
    
-}*/
+}
   
 
 
@@ -449,7 +429,7 @@ body{
 
     .input-box input:focus ~ label,
     .input-box input:valid ~ label {
-        top: -5px; 
+        top: 5px; 
         color: var(--bg-color); 
         font-size: 0.85em; 
     }
@@ -514,25 +494,8 @@ body{
         text-decoration: underline;
     }
 
-/* Overlay inicialmente oculto */
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5); /* Escurecimento com 50% de opacidade */
-    opacity: 0;
-    pointer-events: none; /* Desativa interações quando oculto */
-    transition: opacity 0.4s ease;
-    z-index: 999; /* Abaixo do popup, mas acima do conteúdo da página */
-}
 
-/* Ativa o overlay */
-.overlay.active {
-    opacity: 1;
-    pointer-events: auto; /* Ativa interações para capturar cliques */
-}
+
 
 
 .cdk-overlay-pane.active {
@@ -579,11 +542,11 @@ body{
 
 
 
-/* Oculta o popup inicialmente 
+/* Oculta o popup inicialmente */
 .popup-hidden {
     display: none;
    
-}*/
+}
   
 
 .cdk-overlay-pane2 {
@@ -822,32 +785,21 @@ body{
         margin-bottom: 20px;
     }
 
-    
-    .modalSuccess.active{
-        transform: translate(-50%, -50%) scale(1); 
-    opacity: 1;
-    pointer-events: auto; 
-    }
-    .modalSuccess{
-        background-color: rgba(0, 0, 0, .75);
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0); 
-        opacity: 0;
-        max-width: 80vw;
-        width: 400px;
-        height: 500px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #fff;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transition: transform 0.4s ease, opacity 0.3s ease;
-        pointer-events: none;
-        z-index: 1000;
-        transition-delay: .12s;
 
-    }
+
+
+
+/* Garantir que o overlay cubra toda a tela */
+#modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+
+
+
