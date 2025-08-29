@@ -1,5 +1,4 @@
 // Seleciona o overlay, popups e botões
-const overlay = document.getElementById("overlay");
 const locationPopup = document.getElementById("locationPopup");
 const locationPopup2 = document.getElementById("locationPopup2");
 const signInBtn = document.getElementById("signInBtn"); 
@@ -33,20 +32,6 @@ closePopupBtn.addEventListener("click", () => {
     overlay.classList.remove("active");
 });
 
-// Oculta o popup e o overlay ao clicar no botão "Fechar2"
-closePopupBtn2.addEventListener("click", () => {
-    locationPopup2.classList.remove("active");
-    overlay.classList.remove("active");
-});
 
-// Fechar o popup ao clicar no overlay
-overlay.addEventListener("click", () => {
-    if (locationPopup.classList.contains("active")) {
-        locationPopup.classList.remove("active");
-    }
-    if (locationPopup2.classList.contains("active")) {
-        locationPopup2.classList.remove("active");
-    }
-    overlay.classList.remove("active");
-});
+
 
