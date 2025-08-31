@@ -21,22 +21,25 @@ public class SecurityConfig {
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/images_homapage/**", 
                                "/webjars/**", "/favicon.ico").permitAll()
                 .requestMatchers("/", "/menu", "/cadastro", "/login").permitAll()
-                .requestMatchers("/carrinho/**", "/perfil").hasRole("CLIENTE")
-                .requestMatchers("/admin/**").hasRole("FUNCIONARIO")
+                .requestMatchers("/carrinho/**", "/perfil").hasAuthority("ROLE_CLIENTE") // Alterado para hasAuthority
+                .requestMatchers("/admin/**").hasAuthority("ROLE_FUNCIONARIO") // Alterado para hasAuthority
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/redirecionarPorRole", true) 
+                .successHandler(successHandler()) // Usando o successHandler personalizado
+                .failureUrl("/login?error=true") // URL para falha de login
                 .permitAll()
             )
             .logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/?logout=true")
+                .invalidateHttpSession(true) // Invalida a sessão
+                .deleteCookies("JSESSIONID") // Remove cookies
                 .permitAll()
             )
-            .csrf(csrf -> csrf.disable());
+            .csrf(csrf -> csrf.disable()); // Desabilitado para desenvolvimento
 
         return http.build();
     }
@@ -51,7 +54,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

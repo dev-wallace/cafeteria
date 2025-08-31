@@ -59,12 +59,15 @@
         <div class="cdk-overlay-pane" id="locationPopup" style="display: none;">
             <div class="mat-dialog-container">
                 <div class="gps-alert-box">
-                    <!-- Ícones decorativos fixos nos cantos -->
+                    
                     <img th:src="@{/images_homapage/Group45.svg}" alt="Estrela" class="icon-top-left">
                     <img th:src="@{/images_homapage/Group45.svg}" alt="Flor" class="icon-bottom-right">
                     <div class="form-box">
                         <h2>Sign-up</h2>
                     </div>
+                    
+                    <!-- Mensagem de feedback para cadastro -->
+                    <div id="cadastroMensagem" style="display: none; margin: 10px; padding: 10px; border-radius: 4px;"></div>
                     
                     <div class="card-remove-wrapper2">
                         <form th:action="@{/cadastro}" method="post" id="registerForm"> 
@@ -106,7 +109,7 @@
         <div class="cdk-overlay-pane2" id="locationPopup2" style="display: none;">
             <div class="mat-dialog-container2">
                 <div class="gps-alert-box2">
-                    <!-- Ícones decorativos fixos nos cantos -->
+                   
                     <img th:src="@{/images_homapage/Group45.svg}" alt="Estrela" class="icon-top-left2">
                     <img th:src="@{/images_homapage/Group45.svg}" alt="Flor" class="icon-bottom-right2">
                     <div class="form-box">
@@ -116,6 +119,11 @@
                     <!-- Mensagem de erro do Thymeleaf -->
                     <div th:if="${param.error}" class="alert alert-danger" style="margin: 10px; padding: 10px; background: #f8d7da; color: #721c24; border-radius: 4px;">
                         Email ou senha inválidos!
+                    </div>
+                    
+                    <!-- Mensagem de sucesso do cadastro -->
+                    <div th:if="${sucessoCadastro}" class="alert alert-success" style="margin: 10px; padding: 10px; background: #d4edda; color: #155724; border-radius: 4px;">
+                        <span th:text="${sucessoCadastro}"></span>
                     </div>
                     
                     <div class="close2">
@@ -158,7 +166,7 @@
     <script th:src="@{/js/script.js}"></script>
 
     <script>
-        // Script para controlar a exibição dos popups
+        // Script para controlar a exibição dos popups e validação
         document.addEventListener('DOMContentLoaded', function() {
             const signInBtn = document.getElementById('signInBtn');
             const joinNowBtn = document.getElementById('joinNowBtn');
@@ -168,21 +176,25 @@
             const closePopupBtn2 = document.getElementById('closePopupBtn2');
             const modalOverlay = document.getElementById('modalOverlay');
             const registerLink = document.getElementById('registerLink');
+            const registerForm = document.getElementById('registerForm');
+            const cadastroMensagem = document.getElementById('cadastroMensagem');
             
             // Abrir popup de CADASTRO ao clicar no botão "Sign In"
             if (signInBtn && registerPopup) {
                 signInBtn.addEventListener('click', function() {
                     registerPopup.style.display = 'block';
                     modalOverlay.style.display = 'block';
+                    // Limpar mensagens anteriores
+                    cadastroMensagem.style.display = 'none';
                 });
             }
 
-              // Função para fechar todos os popups
-        function closeAllPopups() {
-            if (loginPopup) loginPopup.style.display = 'none';
-            if (registerPopup) registerPopup.style.display = 'none';
-            if (modalOverlay) modalOverlay.style.display = 'none';
-        }
+            // Função para fechar todos os popups
+            function closeAllPopups() {
+                if (loginPopup) loginPopup.style.display = 'none';
+                if (registerPopup) registerPopup.style.display = 'none';
+                if (modalOverlay) modalOverlay.style.display = 'none';
+            }
             
             // Abrir popup de LOGIN ao clicar no botão "Join Now"
             if (joinNowBtn && loginPopup) {
@@ -198,6 +210,8 @@
                     e.preventDefault();
                     loginPopup.style.display = 'none';
                     registerPopup.style.display = 'block';
+                    // Limpar mensagens anteriores
+                    cadastroMensagem.style.display = 'none';
                 });
             }
             
@@ -229,15 +243,66 @@
                     modalOverlay.style.display = 'none';
                 });
             }
-           // Fechar popups com a tecla ESC
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeAllPopups();
+            
+            // Fechar popups com a tecla ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeAllPopups();
+                }
+            });
+
+            // Validação simples do formulário de cadastro
+            if (registerForm) {
+                registerForm.addEventListener('submit', function(e) {
+                    const nome = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const senha = document.getElementById('senha').value;
+                    const endereco = document.getElementById('endereco').value;
+                    
+                    // Validação básica
+                    if (!nome || !email || !senha || !endereco) {
+                        e.preventDefault();
+                        mostrarMensagem('Por favor, preencha todos os campos.', 'erro');
+                        return false;
+                    }
+                    
+                    // Validação de email simples
+                    if (!validarEmail(email)) {
+                        e.preventDefault();
+                        mostrarMensagem('Por favor, insira um email válido.', 'erro');
+                        return false;
+                    }
+                    
+                    // Se tudo estiver correto, o formulário será enviado
+                    mostrarMensagem('Cadastro realizado com sucesso!', 'sucesso');
+                });
+            }
+            
+            // Função para validar email
+            function validarEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+            
+            // Função para mostrar mensagens de feedback
+            function mostrarMensagem(mensagem, tipo) {
+                cadastroMensagem.textContent = mensagem;
+                cadastroMensagem.style.display = 'block';
+                
+                if (tipo === 'erro') {
+                    cadastroMensagem.style.backgroundColor = '#f8d7da';
+                    cadastroMensagem.style.color = '#721c24';
+                    cadastroMensagem.style.border = '1px solid #f5c6cb';
+                } else {
+                    cadastroMensagem.style.backgroundColor = '#d4edda';
+                    cadastroMensagem.style.color = '#155724';
+                    cadastroMensagem.style.border = '1px solid #c3e6cb';
+                }
+                
+                // Rolagem suave para a mensagem
+                cadastroMensagem.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         });
-
-        
-    });
-</script>
+    </script>
 </body>
 </html>
