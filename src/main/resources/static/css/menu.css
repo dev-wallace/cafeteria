@@ -1,0 +1,216 @@
+/* menu.css - Estilos específicos para a página de menu */
+.menu-page-body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f6f8f7;
+    padding-top: 80px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-container {
+    flex: 1;
+}
+
+/* Sidebar do menu */
+.menu-sidebar {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+}
+
+.menu-sidebar h3 {
+    color: #1E3932;
+    margin-bottom: 15px;
+}
+
+.menu-category-list {
+    padding: 0;
+    margin: 0;
+}
+
+.menu-category-list li {
+    margin-bottom: 10px;
+    list-style: none;
+}
+
+.menu-category-list a {
+    color: #1E3932;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: block;
+    transition: all 0.2s;
+}
+
+.menu-category-list li.active a,
+.menu-category-list a:hover {
+    background: #198754;
+    color: #fff;
+}
+
+/* Header do menu */
+.menu-title {
+    font-weight: 700;
+    color: #1E3932;
+    margin: 0;
+}
+
+.menu-search-box {
+    display: flex;
+    width: 300px;
+}
+
+.menu-search-box input {
+    border: 2px solid #198754;
+    border-radius: 8px 0 0 8px;
+    border-right: none;
+}
+
+.menu-search-box .menu-btn-search {
+    background: #198754;
+    color: #fff;
+    border-radius: 0 8px 8px 0;
+    transition: background 0.2s;
+    border: 2px solid #198754;
+    border-left: none;
+}
+
+.menu-search-box .menu-btn-search:hover {
+    background: #00653e;
+    border-color: #00653e;
+}
+
+/* Produtos */
+.menu-product-grid {
+    margin-top: 20px;
+}
+
+.menu-product-card {
+    background: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;
+}
+
+.menu-product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+.menu-product-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.menu-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.menu-product-info {
+    padding: 15px;
+}
+
+.menu-product-info h3 {
+    font-size: 1.2rem;
+    color: #1E3932;
+    margin-bottom: 8px;
+}
+
+.menu-product-desc {
+    font-size: 0.9rem;
+    color: #555;
+    min-height: 40px;
+    margin-bottom: 15px;
+}
+
+.menu-product-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-product-price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #198754;
+}
+
+.menu-btn-add-cart {
+    background: linear-gradient(135deg, #198754, #00653e);
+    color: #fff;
+    border-radius: 30px;
+    padding: 6px 14px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    border: none;
+}
+
+.menu-btn-add-cart:hover {
+    background: linear-gradient(135deg, #00653e, #1E3932);
+    transform: scale(1.05);
+}
+
+/* Paginação */
+.menu-pagination {
+    margin-top: 30px;
+}
+
+.menu-pagination .page-link {
+    color: #198754;
+    border: 1px solid #dee2e6;
+}
+
+.menu-pagination .page-item.active .page-link {
+    background: #198754;
+    border-color: #198754;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .menu-page-body {
+        padding-top: 70px;
+    }
+    
+    .menu-header-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .menu-search-box {
+        width: 100%;
+    }
+    
+    .menu-sidebar {
+        margin-bottom: 20px;
+    }
+}
+
+/* Notificação */
+.menu-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #198754, #00653e);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 1000;
+    opacity: 0.95;
+    animation: menuFadeInUp 0.5s ease;
+}
+
+@keyframes menuFadeInUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 0.95; }
+}
