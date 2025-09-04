@@ -16,13 +16,51 @@
       --muted-2: #e9f6f2;
     }
 
+   .footer-custom{
+  background: linear-gradient(180deg, var(--green-2), var(--green-1));
+  color: rgba(255,255,255,0.95);
+  padding: 20px 0; /* ↓ menor altura */
+  border-top-left-radius: 6px; /* ↓ borda mais clean */
+  border-top-right-radius: 6px;
+  margin-top: auto;
+}
+
+.footer-badge {
+  width:36px; height:36px; /* ↓ badge menor */
+  border-radius:6px;
+  display:flex; align-items:center; justify-content:center;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 1rem;
+  box-shadow: none; /* ↓ remove sombra */
+}
+
+.social-icon {
+  width:32px; height:32px; /* ↓ menor tamanho */
+  border-radius:6px;
+  background: rgba(255,255,255,0.08);
+  display:inline-flex; align-items:center; justify-content:center;
+  margin-left:6px;
+  transition: transform .15s, background .15s;
+  color: #fff;
+  font-size: 0.9rem; /* ↓ ícone mais clean */
+}
+.social-icon:hover { transform: translateY(-2px); background: rgba(255,255,255,0.15); }
+
+.footer-links a { margin-bottom:6px; font-size:0.95rem; } /* ↓ links mais finos */
+
+.small-note {
+  opacity: .8;
+  font-size: 0.85rem;
+}
+
     .footer-custom{
       background: linear-gradient(180deg, var(--green-2), var(--green-1));
       color: rgba(255,255,255,0.95);
       padding: 38px 0;
       border-top-left-radius: 12px;
       border-top-right-radius: 12px;
-      margin-top: 48px;
+      margin-top: auto; /* ← ISSO EMPURRA O FOOTER PARA BAIXO */
     }
 
     .footer-custom a { color: rgba(255,255,255,0.92); text-decoration: none; }
@@ -54,11 +92,6 @@
 
     .footer-links a { display:block; margin-bottom:8px; }
 
-    .newsletter-input {
-      border-radius: 999px;
-      padding-right: 8px;
-    }
-
     .small-note {
       opacity: .86;
     }
@@ -70,6 +103,7 @@
   </style>
 </head>
 <body>
+  
   <footer th:fragment="footer" class="footer-custom">
     <div class="container">
       <div class="row gy-4 align-items-center">

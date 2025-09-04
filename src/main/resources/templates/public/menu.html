@@ -11,122 +11,444 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #0f7b5d;
+      --secondary-color: #4a9b65;
+      --accent-color: #352d26;
+      --light-bg: #F9F5F0;
+      --dark-text: #3C2A1E;
+    }
+    
+    body {
+      background-color: var(--light-bg);
+      color: var(--dark-text);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+   .header-section {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+  padding: 0.8rem 0 1.2rem; /* ↓ altura menor */
+  border-radius: 0 0 12px 12px; /* ↓ bordas mais sutis */
+  margin-bottom: 1.5rem;
+}
+    .greeting h1 {
+  font-weight: 400;
+  margin-bottom: 0;
+  font-size: 1.3rem; 
+}
+    
+    .greeting h2 {
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  font-size: 1.6rem;
+}
+    
+  .search-bar {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255,255,255,0.25); 
+  border-radius: 20px; 
+  padding: 0.4rem 0.8rem;
+}
+   .search-bar input {
+  background: transparent;
+  border: none;
+  color: white;
+  width: 100%;
+  font-size: 0.9rem;
+}
+    
+    .search-bar input::placeholder {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .search-bar input:focus {
+      outline: none;
+    }
+    
+   .category-buttons {
+  display: flex;
+  overflow-x: auto;
+  gap: 8px;
+  padding: 0.5rem 0; /* ↓ menos espaço */
+}
+    
+    .category-buttons::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .category-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      border-radius: 20px;
+      color: white;
+      padding: 0.35rem 1.2rem;
+      font-size: 0.85rem;
 
-  <!-- CSS personalizado -->
-  <link rel="stylesheet" th:href="@{/css/menu.css}">
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+    
+    .category-btn.active, .category-btn:hover {
+      background: white;
+      color: var(--primary-color);
+    }
+    
+    .section-title {
+      font-weight: 700;
+      margin: 2rem 0 1rem 0;
+      position: relative;
+      padding-left: 15px;
+    }
+    
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 20px;
+      width: 5px;
+      background-color: var(--primary-color);
+      border-radius: 10px;
+    }
+    
+    .product-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+      height: 100%;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .product-image {
+      height: 180px;
+      background-color: var(--accent-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .product-image i {
+      font-size: 3rem;
+      color: var(--primary-color);
+    }
+    
+    .product-info {
+      padding: 1rem;
+    }
+    
+    .product-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .product-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+    }
+    
+    .product-price {
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+    
+    .add-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      padding: 0.8rem 0;
+      z-index: 1000;
+    }
+    
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #888;
+      font-size: 0.8rem;
+    }
+    
+    .nav-item.active {
+      color: var(--primary-color);
+    }
+    
+    .nav-item i {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+  </style>
 </head>
-<body class="menu-page-body">
+<body>
   <!-- Header -->
-  <div th:replace="fragments/header :: header"></div>
+  <div th:replace="~{fragments/header}"></div>
 
   <!-- Conteúdo principal -->
-  <div class="container menu-container py-4">
-    <div class="row">
-      <!-- Sidebar -->
-      <div class="col-lg-3 col-md-4">
-        <div class="menu-sidebar">
-          <h3><i class="fas fa-filter me-2"></i>Categorias</h3>
-          <ul class="menu-category-list">
-            <li class="active"><a href="#"><i class="fas fa-all me-2"></i>Todos os produtos</a></li>
-            <li><a href="#"><i class="fas fa-coffee me-2"></i>Cafés</a></li>
-            <li><a href="#"><i class="fas fa-mug-hot me-2"></i>Chás</a></li>
-            <li><a href="#"><i class="fas fa-birthday-cake me-2"></i>Bolos</a></li>
-            <li><a href="#"><i class="fas fa-bread-slice me-2"></i>Sanduíches</a></li>
-            <li><a href="#"><i class="fas fa-glass-whiskey me-2"></i>Sucos</a></li>
-          </ul>
+  <div class="header-section">
+    <div class="container">
+      <div class="greeting mb-4">
+        <h1></h1>
+        <h2></h2>
+      </div>
+      
+      <div class="search-bar mb-4">
+        <div class="d-flex align-items-center">
+          <i class="fas fa-search me-2"></i>
+          <input type="text" placeholder="Pesquisar sua bebida...">
+        </div>
+      </div>
+      
+      <div class="category-buttons">
+        <button class="category-btn active">Todos</button>
+        <button class="category-btn">Café</button>
+        <button class="category-btn">Chá</button>
+        <button class="category-btn">Bolo</button>
+        <button class="category-btn">Suco</button>
+        <button class="category-btn">Sanduíche</button>
+      </div>
+    </div>
+  </div>
 
-          <div class="filter-section mt-4">
-            <h4><i class="fas fa-dollar-sign me-2"></i>Filtrar por preço</h4>
-            <div class="price-filter">
-              <input type="range" class="form-range" min="0" max="50" step="5" id="priceRange">
-              <div class="price-values d-flex justify-content-between mt-2">
-                <small>R$ 0</small>
-                <small>R$ 50</small>
-              </div>
+  <div class="container mb-5">
+    <h3 class="section-title">Encontre Sua Bebida Favorita</h3>
+    
+    <div class="row">
+      <!-- Produto 1 -->
+      <div class="col-6 col-md-4 col-lg-3 mb-4">
+        <div class="product-card">
+          <div class="product-image">
+            <i class="fas fa-coffee"></i>
+          </div>
+          <div class="product-info">
+            <h5 class="product-title">Café Expresso</h5>
+            <p class="mb-0 small">400 ML</p>
+            <div class="product-details">
+              <span class="product-price">R$ 5,90</span>
+              <button class="add-btn">
+                <i class="fas fa-plus"></i>
+              </button>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Lista de produtos -->
-      <div class="col-lg-9 col-md-8">
-        <div class="d-flex justify-content-between align-items-center mb-4 menu-header-container">
-          <h1 class="menu-title">Nosso Cardápio</h1>
-          <div class="menu-search-box d-flex">
-            <input type="text" placeholder="Buscar produto..." class="form-control">
-            <button class="btn menu-btn-search"><i class="fas fa-search"></i></button>
+      
+      <!-- Produto 2 -->
+      <div class="col-6 col-md-4 col-lg-3 mb-4">
+        <div class="product-card">
+          <div class="product-image">
+            <i class="fas fa-mug-hot"></i>
           </div>
-        </div>
-
-        <div class="row menu-product-grid">
-          <!-- Produto 1 -->
-          <div class="col-xl-4 col-lg-6 col-md-6 mb-4">
-            <div class="menu-product-card">
-              <div class="menu-product-image">
-                <img th:src="@{/images/produtos/cafe-expresso.jpg}" alt="Café Expresso" class="img-fluid">
-              </div>
-              <div class="menu-product-info">
-                <h3>Café Expresso</h3>
-                <p class="menu-product-desc">Café forte e encorpado, servido na xícara tradicional.</p>
-                <div class="menu-product-meta">
-                  <span class="menu-product-price">R$ 5,90</span>
-                  <button class="btn menu-btn-add-cart" data-product-id="1">
-                    <i class="fas fa-plus"></i> Adicionar
-                  </button>
-                </div>
-              </div>
+          <div class="product-info">
+            <h5 class="product-title">Cappuccino</h5>
+            <p class="mb-0 small">450 ML</p>
+            <div class="product-details">
+              <span class="product-price">R$ 8,50</span>
+              <button class="add-btn">
+                <i class="fas fa-plus"></i>
+              </button>
             </div>
           </div>
-
-          <!-- Produto 2 -->
-          <div class="col-xl-4 col-lg-6 col-md-6 mb-4">
-            <div class="menu-product-card">
-              <div class="menu-product-image">
-                <img th:src="@{/images/produtos/cappuccino.jpg}" alt="Cappuccino" class="img-fluid">
-              </div>
-              <div class="menu-product-info">
-                <h3>Cappuccino</h3>
-                <p class="menu-product-desc">Café com leite vaporizado e espuma cremosa.</p>
-                <div class="menu-product-meta">
-                  <span class="menu-product-price">R$ 8,50</span>
-                  <button class="btn menu-btn-add-cart" data-product-id="2">
-                    <i class="fas fa-plus"></i> Adicionar
-                  </button>
-                </div>
-              </div>
+        </div>
+      </div>
+      
+      <!-- Produto 3 -->
+      <div class="col-6 col-md-4 col-lg-3 mb-4">
+        <div class="product-card">
+          <div class="product-image">
+            <i class="fas fa-leaf"></i>
+          </div>
+          <div class="product-info">
+            <h5 class="product-title">Chá Verde</h5>
+            <p class="mb-0 small">350 ML</p>
+            <div class="product-details">
+              <span class="product-price">R$ 7,00</span>
+              <button class="add-btn">
+                <i class="fas fa-plus"></i>
+              </button>
             </div>
           </div>
-
-          <!-- Adicione mais produtos aqui -->
         </div>
+      </div>
+      
+      <!-- Produto 4 -->
+      <div class="col-6 col-md-4 col-lg-3 mb-4">
+        <div class="product-card">
+          <div class="product-image">
+            <i class="fas fa-cookie-bite"></i>
+          </div>
+          <div class="product-info">
+            <h5 class="product-title">Bolo de Chocolate</h5>
+            <p class="mb-0 small">1 Fatia</p>
+            <div class="product-details">
+              <span class="product-price">R$ 9,90</span>
+              <button class="add-btn">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <h3 class="section-title">Cafés</h3>
+    
+    <div class="row">
+      <!-- Café 1 -->
+      <div class="col-6 col-md-4 col-lg-3 mb-4">
+        <div class="product-card">
+          <div class="product-image">
+            <i class="fas fa-coffee"></i>
+          </div>
+          <div class="product-info">
+            <h5 class="product-title">Macchiato</h5>
+            <p class="mb-0 small">350 ML</p>
+            <div class="product-details">
+              <span class="product-price">R$ 6,50</span>
+              <button class="add-btn">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Café 2 -->
+      <div class="col-6 col-md-4 col-lg-3 mb-4">
+        <div class="product-card">
+          <div class="product-image">
+            <i class="fas fa-coffee"></i>
+          </div>
+          <div class="product-info">
+            <h5 class="product-title">Mocha</h5>
+            <p class="mb-0 small">400 ML</p>
+            <div class="product-details">
+              <span class="product-price">R$ 9,00</span>
+              <button class="add-btn">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Café 3 -->
+      <div class="col-6 col-md-4 col-lg-3 mb-4">
+        <div class="product-card">
+          <div class="product-image">
+            <i class="fas fa-coffee"></i>
+          </div>
+          <div class="product-info">
+            <h5 class="product-title">Americano</h5>
+            <p class="mb-0 small">500 ML</p>
+            <div class="product-details">
+              <span class="product-price">R$ 7,50</span>
+              <button class="add-btn">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Café 4 -->
+      <div class="col-6 col-md-4 col-lg-3 mb-4">
+        <div class="product-card">
+          <div class="product-image">
+            <i class="fas fa-coffee"></i>
+          </div>
+          <div class="product-info">
+            <h5 class="product-title">Latte</h5>
+            <p class="mb-0 small">450 ML</p>
+            <div class="product-details">
+              <span class="product-price">R$ 8,90</span>
+              <button class="add-btn">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <!-- Paginação -->
-        <nav aria-label="Page navigation" class="mt-5 menu-pagination">
-          <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1">Anterior</a>
-            </li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Próximo</a>
-            </li>
-          </ul>
-        </nav>
+  <!-- Navegação inferior -->
+  <div class="bottom-nav">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col">
+          <a href="#" class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Início</span>
+          </a>
+        </div>
+        <div class="col">
+          <a href="#" class="nav-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Localização</span>
+          </a>
+        </div>
+        <div class="col">
+          <a href="#" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Perfil</span>
+          </a>
+        </div>
+        <div class="col">
+          <a href="#" class="nav-item">
+            <i class="fas fa-credit-card"></i>
+            <span>Pagamentos</span>
+          </a>
+        </div>
+        <div class="col">
+          <a href="#" class="nav-item">
+            <i class="fas fa-gift"></i>
+            <span>Presentes</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Footer -->
-  <div th:replace="fragments/footer :: footer"></div>
+  <div th:replace="~{fragments/footer}"></div>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- JS personalizado -->
-  <script th:src="@{/js/menu.js}"></script>
+  
+  <script>
+    // Script para alternar categorias
+    document.querySelectorAll('.category-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        document.querySelectorAll('.category-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        this.classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>
