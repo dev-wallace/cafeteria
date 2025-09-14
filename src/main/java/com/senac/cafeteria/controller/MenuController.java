@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Base64;
+
 @Controller
 public class MenuController {
 
@@ -14,7 +16,17 @@ public class MenuController {
 
     @GetMapping("/menu")
     public String menu(Model model) {
-        model.addAttribute("produtos", produtoService.listarTodos());
+        var produtos = produtoService.listarTodos();
+        
+        // Converter imagens para Base64
+        for (var produto : produtos) {
+            if (produto.getImagem() != null) {
+                String base64Image = Base64.getEncoder().encodeToString(produto.getImagem());
+                produto.setImagemBase64(base64Image);
+            }
+        }
+        
+        model.addAttribute("produtos", produtos);
         return "public/menu";
     }
 }

@@ -9,44 +9,50 @@
     <div th:replace="fragments/header :: header"></div>
     
     <div class="container mt-5">
-        <h1>Lista de Produtos</h1>
-        
-        <div class="mt-4">
-            <a th:href="@{/admin/produtos/novo}" class="btn btn-primary mb-3">➕ Novo Produto</a>
-            
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Imagem</th>
-                            <th>Nome</th>
-                            <th>Preço</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="produto : ${produtos}">
-                            <td>
-                                <img th:if="${produto.imagem != null}" 
-                                     th:src="'data:image/jpeg;base64,' + ${#strings.substring(#conversions.toBase64(produto.imagem), 0, 100)} + '...'"
-                                     width="50" height="50" class="rounded">
-                            </td>
-                            <td th:text="${produto.nome}"></td>
-                            <td th:text="'R$ ' + ${#numbers.formatDecimal(produto.preco, 1, 2, 'POINT')}"></td>
-                            <td>
-                                <a th:href="@{/admin/produtos/editar/{id}(id=${produto.id})}" 
-                                   class="btn btn-warning btn-sm">✏️ Editar</a>
-                                <a th:href="@{/admin/produtos/excluir/{id}(id=${produto.id})}" 
-                                   class="btn btn-danger btn-sm" 
-                                   onclick="return confirm('Tem certeza que deseja excluir este produto?')">🗑️ Excluir</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>📋 Lista de Produtos</h1>
+            <a th:href="@{/admin/produtos/novo}" class="btn btn-primary">➕ Novo Produto</a>
         </div>
+        
+        <div th:if="${produtos.empty}" class="alert alert-info">
+            Nenhum produto cadastrado ainda.
+        </div>
+        
+        <div th:unless="${produtos.empty}" class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Imagem</th>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Preço</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="produto : ${produtos}">
+                        <td>
+                            <img th:if="${produto.imagemBase64 != null}" 
+                                 th:src="'data:image/jpeg;base64,' + ${produto.imagemBase64}"
+                                 width="50" height="50" class="rounded">
+                            <span th:unless="${produto.imagemBase64 != null}">Sem imagem</span>
+                        </td>
+                        <td th:text="${produto.nome}"></td>
+                        <td th:text="${produto.descricao}"></td>
+                        <td th:text="'R$ ' + ${#numbers.formatDecimal(produto.preco, 1, 2, 'POINT')}"></td>
+                        <td>
+                            <a th:href="@{/admin/produtos/editar/{id}(id=${produto.id})}" 
+                               class="btn btn-warning btn-sm">✏️ Editar</a>
+                            <a th:href="@{/admin/produtos/excluir/{id}(id=${produto.id})}" 
+                               class="btn btn-danger btn-sm" 
+                               onclick="return confirm('Tem certeza que deseja excluir este produto?')">🗑️ Excluir</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <a th:href="@{/admin/dashboard}" class="btn btn-secondary">Voltar ao Dashboard</a>
     </div>
-    
-    <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

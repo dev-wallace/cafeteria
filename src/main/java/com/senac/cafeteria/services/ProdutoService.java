@@ -18,11 +18,11 @@ public class ProdutoService {
     private final ProdutoRepository produtoRepository;
 
     public Produto salvarProduto(Produto produto, MultipartFile imagem) throws IOException {
-        if(imagem != null && !imagem.isEmpty()) {
-            produto.setImagem(imagem.getBytes());
-        }
-        return produtoRepository.save(produto);
+    if(imagem != null && !imagem.isEmpty()) {
+        produto.setImagem(imagem.getBytes());
     }
+    return produtoRepository.save(produto);
+}
     
     public void excluirProduto(Long id) {
         produtoRepository.deleteById(id);

@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 
 import lombok.Data;
 
@@ -26,6 +27,9 @@ public class Produto {
 
     @Lob
     private byte[] imagem;
+
+    @Transient // Campo não persistido no banco
+    private String imagemBase64;
 
     @OneToMany(mappedBy = "produto")
     private List<ItemPedido> itensPedido;
