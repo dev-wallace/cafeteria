@@ -21,7 +21,7 @@ public class SecurityConfig {
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/images_homapage/**", 
                                "/webjars/**", "/favicon.ico").permitAll()
                 .requestMatchers("/", "/menu", "/cadastro", "/login", "/about").permitAll()
-                .requestMatchers("/carrinho/**", "/perfil").hasAuthority("ROLE_CLIENTE") // Alterado para hasAuthority
+                .requestMatchers("/carrinho/**", "/perfil","/perfil").hasAuthority("ROLE_CLIENTE") // Alterado para hasAuthority
                 .requestMatchers("/admin/**").hasAuthority("ROLE_FUNCIONARIO") // Alterado para hasAuthority
                 .anyRequest().authenticated()
             )

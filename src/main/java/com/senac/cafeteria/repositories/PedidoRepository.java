@@ -1,11 +1,13 @@
 package com.senac.cafeteria.repositories;
 
-import java.util.List;
+import com.senac.cafeteria.models.Pedido;
+import com.senac.cafeteria.models.Usuario;
+import com.senac.cafeteria.models.enums.StatusPedido;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.senac.cafeteria.models.Pedido;
+import java.util.List;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
-    List<Pedido> findByClienteId(Long clienteId);
+    List<Pedido> findByUsuarioOrderByDataCriacaoDesc(Usuario usuario);
+    List<Pedido> findByStatusOrderByDataCriacaoAsc(StatusPedido status);
 }

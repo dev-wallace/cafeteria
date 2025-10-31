@@ -26,7 +26,7 @@ public class Usuario implements UserDetails { // ← IMPLEMENTAR UserDetails
     @Enumerated(EnumType.STRING)
     private Role role;
     
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "usuario")
     private List<Pedido> pedidos;
 
     // ← MÉTODOS OBRIGATÓRIOS DO UserDetails
