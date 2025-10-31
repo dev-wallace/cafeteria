@@ -12,14 +12,14 @@
             --light-bg: #F9F5F0;
             --dark-text: #3C2A1E;
         }
-        
+
         body {
             background-color: var(--light-bg);
             color: var(--dark-text);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding-top: 80px;
         }
-        
+
         .status-badge {
             padding: 0.35rem 0.65rem;
             border-radius: 20px;
@@ -36,7 +36,7 @@
         .status-pronto { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
         .status-entregue { background-color: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
         .status-cancelado { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        
+
         .pedido-card {
             border: none;
             border-radius: 15px;
@@ -71,7 +71,7 @@
         .loading { display: none; text-align: center; padding: 2rem; }
 
         /* Tornar dropdown não recortado dentro de table-responsive */
-        .table-responsive { overflow: visible; } 
+        .table-responsive { overflow: visible; }
 
         /* Garantir dropdown por cima de tudo */
         .dropdown-menu { z-index: 3000; min-width: 150px; }
@@ -99,10 +99,28 @@
 
         /* small UX adjustments */
         .btn-small { padding: .25rem .5rem; font-size: .85rem; }
+
+        /* Loading visual for buttons */
+        .btn-loading { position: relative; color: transparent !important; }
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            margin-left: -8px;
+            margin-top: -8px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-right-color: transparent;
+            animation: spinner 0.75s linear infinite;
+        }
+        @keyframes spinner { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-      <div th:replace="~{fragments/header}"></div>
+    <div th:replace="~{fragments/header}"></div>
 
     <div class="container mt-4 mb-5">
         <!-- Cabeçalho com título e botão de atualizar -->
@@ -143,7 +161,6 @@
         <div th:if="${filtroAtivo}" class="alert alert-info alert-dismissible fade show" role="alert">
             <i class="fas fa-filter me-2"></i>
             Mostrando apenas pedidos com status: <strong th:text="${filtroAtivo}"></strong>
-            <!-- CORREÇÃO: link apontando para o mapeamento correto do controller -->
             <a th:href="@{/admin/listar-pedidos}" class="btn btn-sm btn-outline-info ms-2">Limpar Filtro</a>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
@@ -154,7 +171,7 @@
             <span th:text="${param.sucesso}">Pedido atualizado com sucesso!</span>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
-        
+
         <div th:if="${param.erro}" class="alert alert-danger alert-dismissible fade show" role="alert">
             <i class="fas fa-exclamation-circle me-2"></i>
             <span th:text="${param.erro}">Erro ao processar pedido!</span>
@@ -202,7 +219,7 @@
                                     <span class="item-count-badge" th:text="${pedido.itens != null ? pedido.itens.size() : 0}"></span>
                                     <span class="d-none d-sm-inline"> item(ns)</span>
                                 </td>
-                                <td class="fw-bold text-success" 
+                                <td class="fw-bold text-success"
                                     th:text="${pedido.total != null ? 'R$ ' + #numbers.formatDecimal(pedido.total, 1, 2, 'POINT') : 'R$ 0,00'}"></td>
                                 <td>
                                     <!-- Status atual -->
@@ -211,62 +228,60 @@
 
                                     <!-- Quick-change buttons (pequenos) para facilitar alteração sem abrir o dropdown -->
                                     <div class="mt-2 quick-status-btns">
-                                        <a href="#" class="btn btn-sm btn-light btn-small status-change" 
-                                           th:data-url="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='PREPARANDO'))}" 
-                                           th:data-status="'PREPARANDO'">Preparando</a>
-                                        <a href="#" class="btn btn-sm btn-light btn-small status-change" 
-                                           th:data-url="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='PRONTO'))}" 
-                                           th:data-status="'PRONTO'">Pronto</a>
+                                        <a href="#" class="btn btn-sm btn-light btn-small status-change"
+                                           th:attr="data-url=@{/admin/listar-pedidos/{id}/status(id=${pedido.id},status='PREPARANDO')}, data-status='PREPARANDO'">Preparando</a>
+
+                                        <a href="#" class="btn btn-sm btn-light btn-small status-change"
+                                           th:attr="data-url=@{/admin/listar-pedidos/{id}/status(id=${pedido.id},status='PRONTO')}, data-status='PRONTO'">Pronto</a>
                                     </div>
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <!-- VER DETALHES: CORRIGIDO para o mapeamento do controller -->
-                                        <a th:href="@{/admin/listar-pedidos/{id}(id=${pedido.id})}" 
+                                        <!-- VER DETALHES -->
+                                        <a th:href="@{/admin/listar-pedidos/{id}(id=${pedido.id})}"
                                            class="btn btn-outline-primary" title="Ver detalhes">
                                             <i class="fas fa-eye"></i>
                                             <span class="d-none d-sm-inline ms-1">Detalhes</span>
                                         </a>
+
                                         <!-- Dropdown para alterar status -->
-                                        <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" 
+                                        <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <!-- CORREÇÃO: rotas atualizadas para /admin/listar-pedidos/{id}/status?status=... -->
                                             <li>
-                                                <a class="dropdown-item status-change" 
+                                                <a class="dropdown-item status-change"
                                                    th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='PENDENTE')}">
                                                     <i class="fas fa-clock text-warning me-2"></i>Pendente
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item status-change" 
+                                                <a class="dropdown-item status-change"
                                                    th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='CONFIRMADO')}">
                                                     <i class="fas fa-check-circle text-info me-2"></i>Confirmado
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item status-change" 
+                                                <a class="dropdown-item status-change"
                                                    th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='PREPARANDO')}">
                                                     <i class="fas fa-utensils text-warning me-2"></i>Preparando
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item status-change" 
+                                                <a class="dropdown-item status-change"
                                                    th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='PRONTO')}">
                                                     <i class="fas fa-check text-success me-2"></i>Pronto
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item status-change" 
+                                                <a class="dropdown-item status-change"
                                                    th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='ENTREGUE')}">
                                                     <i class="fas fa-truck text-secondary me-2"></i>Entregue
                                                 </a>
                                             </li>
                                             <li><hr class="dropdown-divider"></li>
-                                            <!-- CORREÇÃO: rota de exclusão apontando para o mapeamento do controller -->
                                             <li>
-                                                <a class="dropdown-item text-danger delete-pedido" 
+                                                <a class="dropdown-item text-danger delete-pedido"
                                                    th:href="@{/admin/listar-pedidos/excluir/{id}(id=${pedido.id})}">
                                                     <i class="fas fa-trash me-2"></i> Excluir
                                                 </a>
@@ -284,7 +299,6 @@
         <!-- Lista de Pedidos - VISÃO CARDS (Mobile) -->
         <div th:if="${pedidos != null and !pedidos.empty}" id="pedidosCards" class="pedido-mobile-card">
             <div th:each="pedido : ${pedidos}" class="pedido-card">
-                <!-- Cabeçalho do Pedido -->
                 <div class="pedido-header">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
@@ -298,9 +312,7 @@
                     </div>
                 </div>
 
-                <!-- Corpo do Pedido -->
                 <div class="card-body">
-                    <!-- Informações do Pedido -->
                     <div class="pedido-info-row">
                         <span class="pedido-info-label">Cliente:</span>
                         <span class="pedido-info-value" th:text="${pedido.usuario != null ? pedido.usuario.nome : 'Cliente'}"></span>
@@ -314,39 +326,36 @@
                     </div>
                     <div class="pedido-info-row">
                         <span class="pedido-info-label">Total:</span>
-                        <span class="pedido-info-value fw-bold text-success" 
+                        <span class="pedido-info-value fw-bold text-success"
                               th:text="${pedido.total != null ? 'R$ ' + #numbers.formatDecimal(pedido.total, 1, 2, 'POINT') : 'R$ 0,00'}"></span>
                     </div>
 
-                    <!-- Ações -->
                     <div class="action-buttons-mobile mt-3">
-                        <a th:href="@{/admin/listar-pedidos/{id}(id=${pedido.id})}" 
+                        <a th:href="@{/admin/listar-pedidos/{id}(id=${pedido.id})}"
                            class="btn btn-primary btn-action">
                             <i class="fas fa-eye me-1"></i> Detalhes
                         </a>
-                        
-                        <!-- Dropdown para alterar status -->
+
                         <div class="dropdown">
-                            <button class="btn btn-outline-primary btn-action dropdown-toggle" 
+                            <button class="btn btn-outline-primary btn-action dropdown-toggle"
                                     type="button" data-bs-toggle="dropdown">
                                 <i class="fas fa-sync-alt me-1"></i> Status
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item status-change" 
+                                <li><a class="dropdown-item status-change"
                                        th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='PENDENTE')}">Pendente</a></li>
-                                <li><a class="dropdown-item status-change" 
+                                <li><a class="dropdown-item status-change"
                                        th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='CONFIRMADO')}">Confirmado</a></li>
-                                <li><a class="dropdown-item status-change" 
+                                <li><a class="dropdown-item status-change"
                                        th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='PREPARANDO')}">Preparando</a></li>
-                                <li><a class="dropdown-item status-change" 
+                                <li><a class="dropdown-item status-change"
                                        th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='PRONTO')}">Pronto</a></li>
-                                <li><a class="dropdown-item status-change" 
+                                <li><a class="dropdown-item status-change"
                                        th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='ENTREGUE')}">Entregue</a></li>
                             </ul>
                         </div>
-                        
-                        <!-- Botão de excluir -->
-                        <a class="btn btn-outline-danger btn-action delete-pedido" 
+
+                        <a class="btn btn-outline-danger btn-action delete-pedido"
                            th:href="@{/admin/listar-pedidos/excluir/{id}(id=${pedido.id})}">
                             <i class="fas fa-trash me-1"></i> Excluir
                         </a>
@@ -360,7 +369,6 @@
             <div class="col-6 col-md-3 mb-3">
                 <div class="card stats-card text-center border-warning">
                     <div class="card-body">
-                        <!-- CORREÇÃO: expressão Thymeleaf para contar por status -->
                         <h5 class="card-title text-warning" th:text="${pedidos != null ? #lists.size(pedidos.?[status.name()=='PENDENTE']) : 0}">0</h5>
                         <p class="card-text mb-0">Pendentes</p>
                     </div>
@@ -393,8 +401,9 @@
         </div>
     </div>
 
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const btnRefresh = document.getElementById('btnRefresh');
@@ -423,32 +432,36 @@
             const cards = document.querySelectorAll('.pedido-card');
             cards.forEach((card, index) => card.style.animationDelay = `${index * 0.1}s`);
 
-            // ========== TRATAMENTO PARA MUDANÇA DE STATUS ==========
-            // manejamos dois casos:
-            // 1) links <a class="status-change" th:href="..."> (dropdown)
-            // 2) quick buttons com data-url (atributo data-url)
+            // ========== TRATAMENTO PARA MUDANÇA DE STATUS (USANDO data-*) ==========
             const statusChangeElems = document.querySelectorAll('.status-change');
             statusChangeElems.forEach(elem => {
                 elem.addEventListener('click', function(e) {
                     e.preventDefault();
-                    // prioridade: data-url (quick button), senão href
-                    const url = this.getAttribute('data-url') || this.getAttribute('href');
-                    // extrair id e status da URL de forma robusta
-                    const idMatch = url.match(/\/listar-pedidos\/(\d+)\/status/);
-                    const statusMatch = url.match(/status=([^&'"]+)/) || url.match(/status='?([^'"]+)'?/);
-                    if (!idMatch || !statusMatch) {
-                        alert('URL de alteração de status inválida: ' + url);
+
+                    // prioriza data-url / data-status (quick buttons), senão usa href
+                    const url = this.dataset.url || this.getAttribute('href');
+                    let novoStatus = this.dataset.status || null;
+
+                    // fallback: extrair status do href se necessário
+                    if (!novoStatus) {
+                        const m = url ? url.match(/status=([^&'"]+)/) : null;
+                        novoStatus = m ? m[1].replace(/'/g,'') : null;
+                    }
+
+                    // extrair id do url (fallback)
+                    const idMatch = url ? url.match(/\/listar-pedidos\/(\d+)\/status/) : null;
+                    const pedidoId = idMatch ? idMatch[1] : (this.dataset.id || 'N/A');
+
+                    if (!url || !novoStatus) {
+                        alert('URL ou status inválido para alteração.');
                         return;
                     }
-                    const pedidoId = idMatch[1];
-                    const novoStatus = statusMatch[1].replace(/'/g, '');
 
-                    if (!confirm(`Tem certeza que deseja alterar o status do pedido #${pedidoId} para ${novoStatus}?`)) return;
+                    if (!confirm(`Deseja alterar o status do pedido #${pedidoId} para ${novoStatus}?`)) return;
 
-                    // loading visual no elemento
                     this.classList.add('btn-loading');
 
-                    fetch(url, { method: 'GET', headers: { 'Content-Type': 'application/json' } })
+                    fetch(url, { method: 'GET' })
                     .then(response => {
                         if (response.ok) {
                             window.location.reload();
@@ -457,8 +470,8 @@
                             this.classList.remove('btn-loading');
                         }
                     })
-                    .catch(error => {
-                        console.error('Erro:', error);
+                    .catch(err => {
+                        console.error(err);
                         alert('Erro ao alterar status do pedido');
                         this.classList.remove('btn-loading');
                     });
@@ -471,14 +484,14 @@
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const url = this.getAttribute('href');
-                    const match = url.match(/\/excluir\/(\d+)/);
+                    const match = url ? url.match(/\/excluir\/(\d+)/) : null;
                     const pedidoId = match ? match[1] : null;
-                    if (!pedidoId) { alert('URL de exclusão inválida: ' + url); return; }
+                    if (!pedidoId) { alert('URL de exclusão inválida'); return; }
                     if (!confirm(`Tem certeza que deseja excluir o pedido #${pedidoId}? Esta ação não pode ser desfeita.`)) return;
 
                     this.classList.add('btn-loading');
 
-                    fetch(url, { method: 'GET', headers: { 'Content-Type': 'application/json' } })
+                    fetch(url, { method: 'GET' })
                     .then(response => {
                         if (response.ok) window.location.reload();
                         else { alert('Erro ao excluir pedido'); this.classList.remove('btn-loading'); }
@@ -495,7 +508,6 @@
             setTimeout(() => {
                 const mainContent = document.querySelector('.container');
                 if (mainContent && mainContent.children.length <= 3) {
-                    console.log('Página parece em branco, recarregando...');
                     refreshPage();
                 }
             }, 3000);
