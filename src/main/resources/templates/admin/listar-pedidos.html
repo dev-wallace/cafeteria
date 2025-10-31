@@ -29,37 +29,13 @@
             text-align: center;
             min-width: 100px;
         }
-        
-        .status-pendente { 
-            background-color: #fff3cd; 
-            color: #856404; 
-            border: 1px solid #ffeaa7;
-        }
-        .status-confirmado { 
-            background-color: #d1ecf1; 
-            color: #0c5460; 
-            border: 1px solid #bee5eb;
-        }
-        .status-preparando { 
-            background-color: #ffeaa7; 
-            color: #856404; 
-            border: 1px solid #ffd87c;
-        }
-        .status-pronto { 
-            background-color: #d4edda; 
-            color: #155724; 
-            border: 1px solid #c3e6cb;
-        }
-        .status-entregue { 
-            background-color: #e2e3e5; 
-            color: #383d41; 
-            border: 1px solid #d6d8db;
-        }
-        .status-cancelado { 
-            background-color: #f8d7da; 
-            color: #721c24; 
-            border: 1px solid #f5c6cb;
-        }
+
+        .status-pendente { background-color: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .status-confirmado { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .status-preparando { background-color: #ffeaa7; color: #856404; border: 1px solid #ffd87c; }
+        .status-pronto { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .status-entregue { background-color: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
+        .status-cancelado { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
         
         .pedido-card {
             border: none;
@@ -90,225 +66,43 @@
             border: none;
         }
 
-        .btn-action:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
+        .btn-action:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 2rem;
-        }
+        .loading { display: none; text-align: center; padding: 2rem; }
 
-        /* Cards para mobile */
-        .pedido-mobile-card {
-            display: none;
-        }
+        /* Tornar dropdown não recortado dentro de table-responsive */
+        .table-responsive { overflow: visible; } 
 
-        .pedido-info-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
+        /* Garantir dropdown por cima de tudo */
+        .dropdown-menu { z-index: 3000; min-width: 150px; }
 
-        .pedido-info-label {
-            font-weight: 600;
-            color: var(--primary-color);
-            min-width: 100px;
-        }
+        /* Quick action buttons (vão facilitar a alteração de status) */
+        .quick-status-btns { display:flex; gap:6px; flex-wrap:wrap; }
+        .quick-status-btns .btn { padding: .25rem .5rem; font-size: .75rem; }
 
-        .pedido-info-value {
-            flex: 1;
-        }
+        /* Mobile cards */
+        .pedido-mobile-card { display: none; }
+
+        .pedido-info-row { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+        .pedido-info-label { font-weight: 600; color: var(--primary-color); min-width: 100px; }
+        .pedido-info-value { flex: 1; }
 
         /* Ações responsivas */
-        .action-buttons-mobile {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .action-buttons-mobile .btn {
-            flex: 1;
-            min-width: 120px;
-        }
-
-        /* Estatísticas responsivas */
-        .stats-card {
-            transition: transform 0.3s ease;
-            margin-bottom: 1rem;
-        }
-
-        .stats-card:hover {
-            transform: translateY(-3px);
-        }
-
-        /* Media Queries para responsividade */
-        @media (max-width: 1200px) {
-            .table th:nth-child(3),
-            .table td:nth-child(3) {
-                display: none;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .table th:nth-child(2),
-            .table td:nth-child(2) {
-                display: none;
-            }
-            
-            .status-badge {
-                min-width: 80px;
-                font-size: 0.7rem;
-                padding: 0.3rem 0.5rem;
-            }
-        }
+        .action-buttons-mobile { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+        .action-buttons-mobile .btn { flex: 1; min-width: 120px; }
 
         @media (max-width: 768px) {
-            body {
-                padding-top: 70px;
-            }
-            
-            /* Esconder tabela em mobile */
-            .table-responsive {
-                display: none;
-            }
-            
-            /* Mostrar cards em mobile */
-            .pedido-mobile-card {
-                display: block;
-            }
-            
-            .pedido-card {
-                margin-bottom: 1rem;
-            }
-            
-            .pedido-header {
-                padding: 0.75rem 1rem;
-            }
-            
-            .btn-action {
-                width: 100%;
-                margin-bottom: 0.5rem;
-            }
-            
-            .stats-card .card-body {
-                padding: 1rem;
-            }
-            
-            .stats-card h5 {
-                font-size: 1.2rem;
-            }
+            .table-responsive { display: none; }
+            .pedido-mobile-card { display: block; }
+            .btn-action { width: 100%; margin-bottom: 0.5rem; }
         }
 
-        @media (max-width: 576px) {
-            .container {
-                padding-left: 10px;
-                padding-right: 10px;
-            }
-            
-            .pedido-header h5 {
-                font-size: 1.1rem;
-            }
-            
-            .status-badge {
-                min-width: 70px;
-                font-size: 0.65rem;
-                padding: 0.25rem 0.4rem;
-            }
-            
-            .action-buttons-mobile {
-                flex-direction: column;
-            }
-            
-            .action-buttons-mobile .btn {
-                min-width: 100%;
-            }
-            
-            .d-flex h2 {
-                font-size: 1.5rem;
-            }
-        }
-
-        /* Animações */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .pedido-card {
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        /* Refresh button */
-        .btn-refresh {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-        }
-
-        .btn-refresh:hover {
-            color: white;
-            transform: rotate(180deg);
-            transition: transform 0.6s ease;
-        }
-
-        /* Badge para contagem de itens */
-        .item-count-badge {
-            background: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        /* Error states */
-        .error-state {
-            text-align: center;
-            padding: 3rem 1rem;
-        }
-
-        .error-state i {
-            font-size: 4rem;
-            color: #dc3545;
-            margin-bottom: 1rem;
-        }
-
-        /* Loading states para botões */
-        .btn-loading {
-            position: relative;
-            color: transparent !important;
-        }
-
-        .btn-loading::after {
-            content: '';
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            top: 50%;
-            left: 50%;
-            margin-left: -8px;
-            margin-top: -8px;
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            border-right-color: transparent;
-            animation: spinner 0.75s linear infinite;
-        }
-
-        @keyframes spinner {
-            to { transform: rotate(360deg); }
-        }
+        /* small UX adjustments */
+        .btn-small { padding: .25rem .5rem; font-size: .85rem; }
     </style>
 </head>
 <body>
-    <div th:replace="~{fragments/header :: header}"></div>
+      <div th:replace="~{fragments/header}"></div>
 
     <div class="container mt-4 mb-5">
         <!-- Cabeçalho com título e botão de atualizar -->
@@ -349,7 +143,8 @@
         <div th:if="${filtroAtivo}" class="alert alert-info alert-dismissible fade show" role="alert">
             <i class="fas fa-filter me-2"></i>
             Mostrando apenas pedidos com status: <strong th:text="${filtroAtivo}"></strong>
-            <a th:href="@{/admin/pedidos}" class="btn btn-sm btn-outline-info ms-2">Limpar Filtro</a>
+            <!-- CORREÇÃO: link apontando para o mapeamento correto do controller -->
+            <a th:href="@{/admin/listar-pedidos}" class="btn btn-sm btn-outline-info ms-2">Limpar Filtro</a>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
 
@@ -401,54 +196,81 @@
                         <tbody>
                             <tr th:each="pedido : ${pedidos}">
                                 <td class="fw-bold">#<span th:text="${pedido.id}"></span></td>
-                                <td class="d-none d-lg-table-cell" th:text="${pedido.usuario.nome}"></td>
+                                <td class="d-none d-lg-table-cell" th:text="${pedido.usuario != null ? pedido.usuario.nome : 'Cliente'}"></td>
                                 <td class="d-none d-xl-table-cell" th:text="${pedido.dataCriacao != null ? #temporals.format(pedido.dataCriacao, 'dd/MM/yyyy HH:mm') : 'N/A'}"></td>
                                 <td>
-                                    <span class="item-count-badge" th:text="${pedido.itens.size()}"></span>
+                                    <span class="item-count-badge" th:text="${pedido.itens != null ? pedido.itens.size() : 0}"></span>
                                     <span class="d-none d-sm-inline"> item(ns)</span>
                                 </td>
                                 <td class="fw-bold text-success" 
-                                    th:text="'R$ ' + ${pedido.total != null ? #numbers.formatDecimal(pedido.total, 1, 2, 'POINT') : '0,00'}"></td>
+                                    th:text="${pedido.total != null ? 'R$ ' + #numbers.formatDecimal(pedido.total, 1, 2, 'POINT') : 'R$ 0,00'}"></td>
                                 <td>
-                                    <span th:classappend="'status-badge status-' + ${pedido.status.toString().toLowerCase()}"
-                                          th:text="${pedido.status}"></span>
+                                    <!-- Status atual -->
+                                    <span th:classappend="'status-badge status-' + (pedido.status != null ? pedido.status.toString().toLowerCase() : 'desconhecido')"
+                                          th:text="${pedido.status != null ? pedido.status : 'DESCONHECIDO'}"></span>
+
+                                    <!-- Quick-change buttons (pequenos) para facilitar alteração sem abrir o dropdown -->
+                                    <div class="mt-2 quick-status-btns">
+                                        <a href="#" class="btn btn-sm btn-light btn-small status-change" 
+                                           th:data-url="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='PREPARANDO'))}" 
+                                           th:data-status="'PREPARANDO'">Preparando</a>
+                                        <a href="#" class="btn btn-sm btn-light btn-small status-change" 
+                                           th:data-url="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='PRONTO'))}" 
+                                           th:data-status="'PRONTO'">Pronto</a>
+                                    </div>
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a th:href="@{/admin/pedidos/{id}(id=${pedido.id})}" 
+                                        <!-- VER DETALHES: CORRIGIDO para o mapeamento do controller -->
+                                        <a th:href="@{/admin/listar-pedidos/{id}(id=${pedido.id})}" 
                                            class="btn btn-outline-primary" title="Ver detalhes">
                                             <i class="fas fa-eye"></i>
                                             <span class="d-none d-sm-inline ms-1">Detalhes</span>
                                         </a>
+                                        <!-- Dropdown para alterar status -->
                                         <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" 
-                                                data-bs-toggle="dropdown" title="Alterar status">
+                                                data-bs-toggle="dropdown" aria-expanded="false">
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item status-change" 
-                                                   th:href="@{/admin/pedidos/{id}/status(id=${pedido.id}, status=PENDENTE)}">
-                                                <i class="fas fa-clock text-warning me-2"></i>Pendente
-                                            </a></li>
-                                            <li><a class="dropdown-item status-change" 
-                                                   th:href="@{/admin/pedidos/{id}/status(id=${pedido.id}, status=CONFIRMADO)}">
-                                                <i class="fas fa-check-circle text-info me-2"></i>Confirmado
-                                            </a></li>
-                                            <li><a class="dropdown-item status-change" 
-                                                   th:href="@{/admin/pedidos/{id}/status(id=${pedido.id}, status=PREPARANDO)}">
-                                                <i class="fas fa-utensils text-warning me-2"></i>Preparando
-                                            </a></li>
-                                            <li><a class="dropdown-item status-change" 
-                                                   th:href="@{/admin/pedidos/{id}/status(id=${pedido.id}, status=PRONTO)}">
-                                                <i class="fas fa-check text-success me-2"></i>Pronto
-                                            </a></li>
-                                            <li><a class="dropdown-item status-change" 
-                                                   th:href="@{/admin/pedidos/{id}/status(id=${pedido.id}, status=ENTREGUE)}">
-                                                <i class="fas fa-truck text-secondary me-2"></i>Entregue
-                                            </a></li>
+                                            <!-- CORREÇÃO: rotas atualizadas para /admin/listar-pedidos/{id}/status?status=... -->
+                                            <li>
+                                                <a class="dropdown-item status-change" 
+                                                   th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='PENDENTE')}">
+                                                    <i class="fas fa-clock text-warning me-2"></i>Pendente
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item status-change" 
+                                                   th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='CONFIRMADO')}">
+                                                    <i class="fas fa-check-circle text-info me-2"></i>Confirmado
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item status-change" 
+                                                   th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='PREPARANDO')}">
+                                                    <i class="fas fa-utensils text-warning me-2"></i>Preparando
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item status-change" 
+                                                   th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='PRONTO')}">
+                                                    <i class="fas fa-check text-success me-2"></i>Pronto
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item status-change" 
+                                                   th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='ENTREGUE')}">
+                                                    <i class="fas fa-truck text-secondary me-2"></i>Entregue
+                                                </a>
+                                            </li>
                                             <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item text-danger delete-pedido" 
-                                                   th:href="@{/admin/pedidos/excluir/{id}(id=${pedido.id})}">
-                                                <i class="fas fa-trash me-2"></i> Excluir
-                                            </a></li>
+                                            <!-- CORREÇÃO: rota de exclusão apontando para o mapeamento do controller -->
+                                            <li>
+                                                <a class="dropdown-item text-danger delete-pedido" 
+                                                   th:href="@{/admin/listar-pedidos/excluir/{id}(id=${pedido.id})}">
+                                                    <i class="fas fa-trash me-2"></i> Excluir
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </td>
@@ -471,8 +293,8 @@
                             </h5>
                             <small th:text="${pedido.dataCriacao != null ? #temporals.format(pedido.dataCriacao, 'dd/MM/yyyy HH:mm') : 'N/A'}"></small>
                         </div>
-                        <span th:classappend="'status-badge status-' + ${pedido.status.toString().toLowerCase()}"
-                              th:text="${pedido.status}"></span>
+                        <span th:classappend="'status-badge status-' + (pedido.status != null ? pedido.status.toString().toLowerCase() : 'desconhecido')"
+                              th:text="${pedido.status != null ? pedido.status : 'DESCONHECIDO'}"></span>
                     </div>
                 </div>
 
@@ -481,24 +303,24 @@
                     <!-- Informações do Pedido -->
                     <div class="pedido-info-row">
                         <span class="pedido-info-label">Cliente:</span>
-                        <span class="pedido-info-value" th:text="${pedido.usuario.nome}"></span>
+                        <span class="pedido-info-value" th:text="${pedido.usuario != null ? pedido.usuario.nome : 'Cliente'}"></span>
                     </div>
                     <div class="pedido-info-row">
                         <span class="pedido-info-label">Itens:</span>
                         <span class="pedido-info-value">
-                            <span class="item-count-badge" th:text="${pedido.itens.size()}"></span>
+                            <span class="item-count-badge" th:text="${pedido.itens != null ? pedido.itens.size() : 0}"></span>
                             produto(s)
                         </span>
                     </div>
                     <div class="pedido-info-row">
                         <span class="pedido-info-label">Total:</span>
                         <span class="pedido-info-value fw-bold text-success" 
-                              th:text="'R$ ' + ${pedido.total != null ? #numbers.formatDecimal(pedido.total, 1, 2, 'POINT') : '0,00'}"></span>
+                              th:text="${pedido.total != null ? 'R$ ' + #numbers.formatDecimal(pedido.total, 1, 2, 'POINT') : 'R$ 0,00'}"></span>
                     </div>
 
                     <!-- Ações -->
                     <div class="action-buttons-mobile mt-3">
-                        <a th:href="@{/admin/pedidos/{id}(id=${pedido.id})}" 
+                        <a th:href="@{/admin/listar-pedidos/{id}(id=${pedido.id})}" 
                            class="btn btn-primary btn-action">
                             <i class="fas fa-eye me-1"></i> Detalhes
                         </a>
@@ -511,21 +333,21 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item status-change" 
-                                       th:href="@{/admin/pedidos/{id}/status(id=${pedido.id}, status=PENDENTE)}">Pendente</a></li>
+                                       th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='PENDENTE')}">Pendente</a></li>
                                 <li><a class="dropdown-item status-change" 
-                                       th:href="@{/admin/pedidos/{id}/status(id=${pedido.id}, status=CONFIRMADO)}">Confirmado</a></li>
+                                       th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='CONFIRMADO')}">Confirmado</a></li>
                                 <li><a class="dropdown-item status-change" 
-                                       th:href="@{/admin/pedidos/{id}/status(id=${pedido.id}, status=PREPARANDO)}">Preparando</a></li>
+                                       th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='PREPARANDO')}">Preparando</a></li>
                                 <li><a class="dropdown-item status-change" 
-                                       th:href="@{/admin/pedidos/{id}/status(id=${pedido.id}, status=PRONTO)}">Pronto</a></li>
+                                       th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='PRONTO')}">Pronto</a></li>
                                 <li><a class="dropdown-item status-change" 
-                                       th:href="@{/admin/pedidos/{id}/status(id=${pedido.id}, status=ENTREGUE)}">Entregue</a></li>
+                                       th:href="@{/admin/listar-pedidos/{id}/status(id=${pedido.id}, status='ENTREGUE')}">Entregue</a></li>
                             </ul>
                         </div>
                         
                         <!-- Botão de excluir -->
                         <a class="btn btn-outline-danger btn-action delete-pedido" 
-                           th:href="@{/admin/pedidos/excluir/{id}(id=${pedido.id})}">
+                           th:href="@{/admin/listar-pedidos/excluir/{id}(id=${pedido.id})}">
                             <i class="fas fa-trash me-1"></i> Excluir
                         </a>
                     </div>
@@ -538,7 +360,8 @@
             <div class="col-6 col-md-3 mb-3">
                 <div class="card stats-card text-center border-warning">
                     <div class="card-body">
-                        <h5 class="card-title text-warning" th:text="${pedidos.stream().filter(p -> p.status.name() == 'PENDENTE').count()}">0</h5>
+                        <!-- CORREÇÃO: expressão Thymeleaf para contar por status -->
+                        <h5 class="card-title text-warning" th:text="${pedidos != null ? #lists.size(pedidos.?[status.name()=='PENDENTE']) : 0}">0</h5>
                         <p class="card-text mb-0">Pendentes</p>
                     </div>
                 </div>
@@ -546,7 +369,7 @@
             <div class="col-6 col-md-3 mb-3">
                 <div class="card stats-card text-center border-info">
                     <div class="card-body">
-                        <h5 class="card-title text-info" th:text="${pedidos.stream().filter(p -> p.status.name() == 'PREPARANDO').count()}">0</h5>
+                        <h5 class="card-title text-info" th:text="${pedidos != null ? #lists.size(pedidos.?[status.name()=='PREPARANDO']) : 0}">0</h5>
                         <p class="card-text mb-0">Preparando</p>
                     </div>
                 </div>
@@ -554,7 +377,7 @@
             <div class="col-6 col-md-3 mb-3">
                 <div class="card stats-card text-center border-success">
                     <div class="card-body">
-                        <h5 class="card-title text-success" th:text="${pedidos.stream().filter(p -> p.status.name() == 'PRONTO').count()}">0</h5>
+                        <h5 class="card-title text-success" th:text="${pedidos != null ? #lists.size(pedidos.?[status.name()=='PRONTO']) : 0}">0</h5>
                         <p class="card-text mb-0">Prontos</p>
                     </div>
                 </div>
@@ -562,7 +385,7 @@
             <div class="col-6 col-md-3 mb-3">
                 <div class="card stats-card text-center border-secondary">
                     <div class="card-body">
-                        <h5 class="card-title text-secondary" th:text="${pedidos.stream().filter(p -> p.status.name() == 'ENTREGUE').count()}">0</h5>
+                        <h5 class="card-title text-secondary" th:text="${pedidos != null ? #lists.size(pedidos.?[status.name()=='ENTREGUE']) : 0}">0</h5>
                         <p class="card-text mb-0">Entregues</p>
                     </div>
                 </div>
@@ -579,73 +402,66 @@
             const loading = document.getElementById('loading');
             const errorState = document.getElementById('errorState');
 
-            // Função para recarregar a página
             function refreshPage() {
                 if (loading) loading.style.display = 'block';
                 if (errorState) errorState.style.display = 'none';
-                
-                setTimeout(() => {
-                    window.location.reload();
-                }, 500);
+                setTimeout(() => { window.location.reload(); }, 500);
             }
 
-            btnRefresh.addEventListener('click', refreshPage);
-            
-            if (btnRetry) {
-                btnRetry.addEventListener('click', refreshPage);
-            }
+            if (btnRefresh) btnRefresh.addEventListener('click', refreshPage);
+            if (btnRetry) btnRetry.addEventListener('click', refreshPage);
 
             // Auto-close alerts after 5 seconds
             setTimeout(function() {
                 const alerts = document.querySelectorAll('.alert');
                 alerts.forEach(alert => {
-                    const bsAlert = new bootstrap.Alert(alert);
-                    bsAlert.close();
+                    try { const bsAlert = new bootstrap.Alert(alert); bsAlert.close(); } catch(e){}
                 });
             }, 5000);
 
-            // Adicionar animação de entrada para os cards
+            // animação cards
             const cards = document.querySelectorAll('.pedido-card');
-            cards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
-            });
+            cards.forEach((card, index) => card.style.animationDelay = `${index * 0.1}s`);
 
             // ========== TRATAMENTO PARA MUDANÇA DE STATUS ==========
-            const statusChangeLinks = document.querySelectorAll('.status-change');
-            statusChangeLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
+            // manejamos dois casos:
+            // 1) links <a class="status-change" th:href="..."> (dropdown)
+            // 2) quick buttons com data-url (atributo data-url)
+            const statusChangeElems = document.querySelectorAll('.status-change');
+            statusChangeElems.forEach(elem => {
+                elem.addEventListener('click', function(e) {
                     e.preventDefault();
-                    
-                    const url = this.getAttribute('href');
-                    const pedidoId = url.match(/\/pedidos\/(\d+)\/status/)[1];
-                    const novoStatus = url.match(/status=(\w+)$/)[1];
-                    
-                    if (confirm(`Tem certeza que deseja alterar o status do pedido #${pedidoId} para ${novoStatus}?`)) {
-                        // Adicionar loading state
-                        this.classList.add('btn-loading');
-                        
-                        // Fazer a requisição
-                        fetch(url, {
-                            method: 'GET',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            }
-                        })
-                        .then(response => {
-                            if (response.ok) {
-                                // Recarregar a página após sucesso
-                                window.location.reload();
-                            } else {
-                                alert('Erro ao alterar status do pedido');
-                                this.classList.remove('btn-loading');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Erro:', error);
+                    // prioridade: data-url (quick button), senão href
+                    const url = this.getAttribute('data-url') || this.getAttribute('href');
+                    // extrair id e status da URL de forma robusta
+                    const idMatch = url.match(/\/listar-pedidos\/(\d+)\/status/);
+                    const statusMatch = url.match(/status=([^&'"]+)/) || url.match(/status='?([^'"]+)'?/);
+                    if (!idMatch || !statusMatch) {
+                        alert('URL de alteração de status inválida: ' + url);
+                        return;
+                    }
+                    const pedidoId = idMatch[1];
+                    const novoStatus = statusMatch[1].replace(/'/g, '');
+
+                    if (!confirm(`Tem certeza que deseja alterar o status do pedido #${pedidoId} para ${novoStatus}?`)) return;
+
+                    // loading visual no elemento
+                    this.classList.add('btn-loading');
+
+                    fetch(url, { method: 'GET', headers: { 'Content-Type': 'application/json' } })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.reload();
+                        } else {
                             alert('Erro ao alterar status do pedido');
                             this.classList.remove('btn-loading');
-                        });
-                    }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        alert('Erro ao alterar status do pedido');
+                        this.classList.remove('btn-loading');
+                    });
                 });
             });
 
@@ -654,67 +470,36 @@
             deleteLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    
                     const url = this.getAttribute('href');
-                    const pedidoId = url.match(/\/excluir\/(\d+)$/)[1];
-                    
-                    if (confirm(`Tem certeza que deseja excluir o pedido #${pedidoId}? Esta ação não pode ser desfeita.`)) {
-                        // Adicionar loading state
-                        this.classList.add('btn-loading');
-                        
-                        // Fazer a requisição
-                        fetch(url, {
-                            method: 'GET',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            }
-                        })
-                        .then(response => {
-                            if (response.ok) {
-                                // Recarregar a página após sucesso
-                                window.location.reload();
-                            } else {
-                                alert('Erro ao excluir pedido');
-                                this.classList.remove('btn-loading');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Erro:', error);
-                            alert('Erro ao excluir pedido');
-                            this.classList.remove('btn-loading');
-                        });
-                    }
+                    const match = url.match(/\/excluir\/(\d+)/);
+                    const pedidoId = match ? match[1] : null;
+                    if (!pedidoId) { alert('URL de exclusão inválida: ' + url); return; }
+                    if (!confirm(`Tem certeza que deseja excluir o pedido #${pedidoId}? Esta ação não pode ser desfeita.`)) return;
+
+                    this.classList.add('btn-loading');
+
+                    fetch(url, { method: 'GET', headers: { 'Content-Type': 'application/json' } })
+                    .then(response => {
+                        if (response.ok) window.location.reload();
+                        else { alert('Erro ao excluir pedido'); this.classList.remove('btn-loading'); }
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        alert('Erro ao excluir pedido');
+                        this.classList.remove('btn-loading');
+                    });
                 });
             });
 
-            // ========== VERIFICAÇÃO DE PÁGINA EM BRANCO ==========
-            function checkPageHealth() {
+            // proteção simples caso página renderize em branco
+            setTimeout(() => {
                 const mainContent = document.querySelector('.container');
-                const hasContent = mainContent && mainContent.children.length > 3;
-                
-                if (!hasContent) {
-                    console.log('Página em branco detectada, recarregando...');
+                if (mainContent && mainContent.children.length <= 3) {
+                    console.log('Página parece em branco, recarregando...');
                     refreshPage();
                 }
-            }
-
-            // Verificar após 3 segundos
-            setTimeout(checkPageHealth, 3000);
+            }, 3000);
         });
-
-        // ========== FUNÇÃO GLOBAL PARA FORÇAR ATUALIZAÇÃO ==========
-        function forceRefresh() {
-            document.getElementById('btnRefresh').click();
-        }
-
-        // Verificação periódica para garantir que a página não fique em branco
-        setInterval(() => {
-            const mainContent = document.querySelector('.container');
-            if (mainContent && mainContent.children.length <= 3) {
-                console.log('Página parece estar em branco, recarregando...');
-                forceRefresh();
-            }
-        }, 10000);
     </script>
 </body>
 </html>
