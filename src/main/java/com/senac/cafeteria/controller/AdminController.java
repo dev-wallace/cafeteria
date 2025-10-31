@@ -36,10 +36,12 @@ public class AdminController {
     private PedidoService pedidoService;
 
     @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(BigDecimal.class, new CustomNumberEditor(BigDecimal.class, true));
-    }
-
+  public void initBinder(WebDataBinder binder) {
+    // já existente: custom editor para BigDecimal
+    binder.registerCustomEditor(BigDecimal.class, new CustomNumberEditor(BigDecimal.class, true));
+    // impede que o DataBinder tente atribuir request param "imagem" direto no produto.imagem
+    binder.setDisallowedFields("imagem");
+}
     // ========== PRODUTOS ==========
     @GetMapping("/produtos/novo")
     public String novoProdutoForm(Model model) {
