@@ -20,11 +20,11 @@ public class PedidoService {
     }
 
     public List<Pedido> listarTodosPedidos() {
-        return pedidoRepository.findAll();
+        return pedidoRepository.findAllByOrderByDataCriacaoDesc();
     }
 
-    public List<Pedido> listarPedidosPorStatus(StatusPedido status) {
-        return pedidoRepository.findByStatusOrderByDataCriacaoAsc(status);
+      public List<Pedido> listarPedidosPorStatus(StatusPedido status) {
+        return pedidoRepository.findByStatusOrderByDataCriacaoDesc(status);
     }
 
     public Pedido buscarPorId(Long id) {
@@ -32,13 +32,14 @@ public class PedidoService {
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
     }
 
-    public Pedido atualizarStatus(Long id, StatusPedido status) {
-        Pedido pedido = buscarPorId(id);
-        pedido.setStatus(status);
-        return pedidoRepository.save(pedido);
-    }
+ public void atualizarStatus(Long id, StatusPedido status) {
+    Pedido pedido = buscarPorId(id);
+    pedido.setStatus(status);
+    pedidoRepository.save(pedido);
+}
 
-    public void excluirPedido(Long id) {
-        pedidoRepository.deleteById(id);
-    }
+   public void excluirPedido(Long id) {
+    Pedido pedido = buscarPorId(id);
+    pedidoRepository.delete(pedido);
+}
 }

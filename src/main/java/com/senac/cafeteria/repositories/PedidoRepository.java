@@ -9,5 +9,6 @@ import java.util.List;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     List<Pedido> findByUsuarioOrderByDataCriacaoDesc(Usuario usuario);
-    List<Pedido> findByStatusOrderByDataCriacaoAsc(StatusPedido status);
+    List<Pedido> findByStatusOrderByDataCriacaoDesc(StatusPedido status); // Mude Asc para Desc
+    List<Pedido> findAllByOrderByDataCriacaoDesc();
 }
