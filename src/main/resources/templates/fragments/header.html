@@ -258,14 +258,11 @@
                   <a class="nav-link-custom" th:href="@{/carrinho}">
                     <i class="bi bi-cart3"></i>
                     <span>Carrinho</span>
-                    <span class="notification-badge">3</span>
+                   
                   </a>
                 </div>
                 
-                <a class="nav-link-custom" th:href="@{/perfil}" sec:authorize="hasAuthority('ROLE_CLIENTE')">
-                  <i class="bi bi-person"></i>
-                  <span>Perfil</span>
-                </a>
+              
                 
                 <a class="nav-link-custom" th:href="@{/admin/dashboard}" sec:authorize="hasAuthority('ROLE_FUNCIONARIO')">
                   <i class="bi bi-speedometer2"></i>

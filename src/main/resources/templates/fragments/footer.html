@@ -19,35 +19,35 @@
    .footer-custom{
   background: linear-gradient(180deg, var(--green-2), var(--green-1));
   color: rgba(255,255,255,0.95);
-  padding: 20px 0; /* ↓ menor altura */
-  border-top-left-radius: 6px; /* ↓ borda mais clean */
+  padding: 20px 0; 
+  border-top-left-radius: 6px; 
   border-top-right-radius: 6px;
   margin-top: auto;
 }
 
 .footer-badge {
-  width:36px; height:36px; /* ↓ badge menor */
+  width:16px; height:36px; 
   border-radius:6px;
   display:flex; align-items:center; justify-content:center;
   background: rgba(255,255,255,0.1);
   color: #fff;
   font-size: 1rem;
-  box-shadow: none; /* ↓ remove sombra */
+  box-shadow: none; 
 }
 
 .social-icon {
-  width:32px; height:32px; /* ↓ menor tamanho */
+  width:32px; height:32px; 
   border-radius:6px;
   background: rgba(255,255,255,0.08);
   display:inline-flex; align-items:center; justify-content:center;
   margin-left:6px;
   transition: transform .15s, background .15s;
   color: #fff;
-  font-size: 0.9rem; /* ↓ ícone mais clean */
+  font-size: 0.9rem; 
 }
 .social-icon:hover { transform: translateY(-2px); background: rgba(255,255,255,0.15); }
 
-.footer-links a { margin-bottom:6px; font-size:0.95rem; } /* ↓ links mais finos */
+.footer-links a { margin-bottom:6px; font-size:0.95rem; } 
 
 .small-note {
   opacity: .8;
@@ -117,12 +117,7 @@
           </div>
         </div>
 
-        <div class="col-md-4 footer-links">
-          <strong>Menu</strong>
-          <a th:href="@{/}" class="d-block">Início</a>
-          <a th:href="@{/menu}" class="d-block">Cardápio</a>
-          <a th:href="@{/cadastro}" class="d-block">Cadastro</a>
-        </div>
+      
 
         <div class="col-md-4 text-md-end text-center">
           <div class="mb-2"><strong>Siga-nos</strong></div>
@@ -138,7 +133,7 @@
 
       <div class="row">
         <div class="col-md-6 text-md-start text-center mb-2">
-          <small>© <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2024</span> Cafeteria — Todos os direitos reservados</small>
+          <small>© <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2026</span> Cafeteria — Todos os direitos reservados</small>
         </div>
         <div class="col-md-6 text-md-end text-center small-note">
           <small>Feito com <i class="bi bi-heart-fill" style="color: #ff6b6b"></i> • Política de privacidade</small>
