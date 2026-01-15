@@ -1218,7 +1218,7 @@
 
     <script th:src="@{/js/script.js}"></script>
 
-    <script>
+      <script>
         // Script para controlar a exibição dos popups e validação
         document.addEventListener('DOMContentLoaded', function () {
             const signInBtn = document.getElementById('signInBtn');
@@ -1231,6 +1231,7 @@
             const registerLink = document.getElementById('registerLink');
             const registerForm = document.getElementById('registerForm');
             const cadastroMensagem = document.getElementById('cadastroMensagem');
+            const loginMensagemEl = document.getElementById('loginMensagem');
 
             // Abrir popup de CADASTRO ao clicar no botão "Sign In"
             if (signInBtn && registerPopup) {
@@ -1238,7 +1239,7 @@
                     registerPopup.style.display = 'block';
                     modalOverlay.style.display = 'block';
                     // Limpar mensagens anteriores
-                    cadastroMensagem.style.display = 'none';
+                    if (cadastroMensagem) cadastroMensagem.style.display = 'none';
                 });
             }
 
@@ -1264,7 +1265,7 @@
                     loginPopup.style.display = 'none';
                     registerPopup.style.display = 'block';
                     // Limpar mensagens anteriores
-                    cadastroMensagem.style.display = 'none';
+                    if (cadastroMensagem) cadastroMensagem.style.display = 'none';
                 });
             }
 
@@ -1337,8 +1338,9 @@
                 return re.test(email);
             }
 
-            // Função para mostrar mensagens de feedback
+            // Função para mostrar mensagens de feedback do cadastro (usar cadastroMensagem)
             function mostrarMensagem(mensagem, tipo) {
+                if (!cadastroMensagem) return;
                 cadastroMensagem.textContent = mensagem;
                 cadastroMensagem.style.display = 'block';
 
@@ -1355,8 +1357,117 @@
                 // Rolagem suave para a mensagem
                 cadastroMensagem.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
+
+            // Função para mostrar mensagens de feedback do login (usa loginMensagem)
+            function mostrarLoginMensagem(mensagem, tipo) {
+                let el = loginMensagemEl;
+                if (!el) {
+                    el = document.getElementById('loginMensagem');
+                }
+                if (!el) {
+                    // cria dinamicamente se por algum motivo não existir
+                    el = document.createElement('div');
+                    el.id = 'loginMensagem';
+                    el.style.margin = '10px';
+                    el.style.padding = '10px';
+                    el.style.borderRadius = '4px';
+                    const wrapper = document.querySelector('.card-remove-wrapper3') || document.body;
+                    wrapper.insertBefore(el, wrapper.firstChild);
+                }
+                el.textContent = mensagem;
+                el.style.display = 'block';
+                if (tipo === 'erro') {
+                    el.style.backgroundColor = '#f8d7da';
+                    el.style.color = '#721c24';
+                    el.style.border = '1px solid #f5c6cb';
+                } else {
+                    el.style.backgroundColor = '#d4edda';
+                    el.style.color = '#155724';
+                    el.style.border = '1px solid #c3e6cb';
+                }
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            /* --- Intercepta submit do form de login para usar JWT + criar sessão --- */
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', async function (e) {
+                    e.preventDefault(); // evita submit tradicional enquanto tentamos JWT
+
+                    const email = document.getElementById('username').value;
+                    const senha = document.getElementById('password').value;
+
+                    // checagem básica
+                    if (!email || !senha) {
+                        mostrarLoginMensagem('Preencha email e senha.', 'erro');
+                        return;
+                    }
+
+                    try {
+                        // 1) chama a API que retorna token JWT
+                        const res = await fetch('/api/auth/login', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ username: email, password: senha })
+                        });
+
+                        if (!res.ok) {
+                            if (res.status === 401) {
+                                mostrarLoginMensagem('Email ou senha inválidos.', 'erro');
+                            } else {
+                                console.warn('Login API retornou status', res.status, ' — fallback para form submit');
+                                loginForm.submit();
+                            }
+                            return;
+                        }
+
+                        const data = await res.json();
+                        const token = data.token || data.accessToken || data.jwt;
+
+                        if (!token) {
+                            mostrarLoginMensagem('Resposta inválida do servidor (token ausente).', 'erro');
+                            return;
+                        }
+
+                        // opcional: guardar token no localStorage (útil para chamadas API futuras)
+                        localStorage.setItem('jwt', token);
+
+                        // 2) criar sessão no servidor a partir do token (endpoint que você deve implementar)
+                        //    endpoint: POST /api/auth/session  { "token": "..." }
+                        try {
+                            const sess = await fetch('/api/auth/session', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ token: token })
+                            });
+
+                            if (!sess.ok) {
+                                console.warn('Criação de sessão falhou (status ' + sess.status + '). Fazendo fallback.');
+                                // se sessão não foi criada, tenta fallback (submit tradicional)
+                                loginForm.submit();
+                                return;
+                            }
+
+                            // sessão criada com sucesso -> redireciona
+                            window.location.href = '/redirecionarPorRole';
+
+                        } catch (errSession) {
+                            console.error('Erro ao criar sessão no servidor', errSession);
+                            // fallback: submit tradicional
+                            loginForm.submit();
+                        }
+
+                    } catch (err) {
+                        console.error('Erro ao chamar /api/auth/login', err);
+                        // rede indisponível: fallback para submit tradicional
+                        loginForm.submit();
+                    }
+                });
+            }
+
         });
     </script>
+
 </body>
 
 </html>
