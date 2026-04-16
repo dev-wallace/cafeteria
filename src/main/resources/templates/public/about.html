@@ -228,30 +228,39 @@
         }
 
         /* Chat widget clean */
-        .chat-fab {
-            position: fixed;
-            right: 22px;
-            bottom: 22px;
-            width: 58px;
-            height: 58px;
-            border: none;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #8d6e63, #6d4c41);
-            color: white;
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
-            cursor: pointer;
-            z-index: 1001;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
+       .chat-fab {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8d6e63, #6d4c41);
+    color: white;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1001;
 
-        .chat-fab:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
-        }
+    /* efeitos */
+    box-shadow: 0 0 20px rgba(141, 110, 99, 0.4);
+    transition: all 0.25s ease;
+}
+
+.chat-fab:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 28px rgba(141, 110, 99, 0.6);
+}
+        .chat-fab {
+    transition: all 0.25s ease;
+}
+
+.chat-fab:hover {
+    transform: scale(1.08);
+}
 
         .chat-widget {
             position: fixed;
@@ -531,9 +540,15 @@
         </div>
     </div>
 
-    <button class="chat-fab" id="chatFab" type="button" aria-label="Abrir chat">
-        <i class="fas fa-comment-dots"></i>
-    </button>
+  <button class="chat-fab" id="chatFab">
+    <i class="fas fa-mug-hot"></i>
+</button>
+    
+
+
+    
+    <i class="fas fa-mug-hot"></i>
+</button>
 
     <div class="chat-widget" id="chatWidget" aria-hidden="true">
         <div class="chat-widget-header">
@@ -561,21 +576,30 @@
     </div>
 
     <script>
+        
         const N8N_WEBHOOK_URL = 'http://localhost:5678/webhook/chat-ia';
      
 
         const chatFab = document.getElementById('chatFab');
         const chatWidget = document.getElementById('chatWidget');
         const chatClose = document.getElementById('chatClose');
+        
+       function toggleChat(open) {
+    const isOpen = typeof open === 'boolean'
+        ? open
+        : !chatWidget.classList.contains('open');
 
-        function toggleChat(open) {
-            const isOpen = typeof open === 'boolean' ? open : !chatWidget.classList.contains('open');
-            chatWidget.classList.toggle('open', isOpen);
-            chatWidget.setAttribute('aria-hidden', String(!isOpen));
-            if (isOpen) {
-                setTimeout(() => document.getElementById('userInput').focus(), 50);
-            }
-        }
+    chatWidget.classList.toggle('open', isOpen);
+    chatWidget.setAttribute('aria-hidden', String(!isOpen));
+
+    // 🔥 troca ícone
+    if (isOpen) {
+        chatFab.innerHTML = '<i class="fas fa-xmark"></i>';
+        setTimeout(() => document.getElementById('userInput').focus(), 50);
+    } else {
+        chatFab.innerHTML = '<i class="fas fa-mug-hot"></i>';
+    }
+}
 
         chatFab.addEventListener('click', () => toggleChat());
         chatClose.addEventListener('click', () => toggleChat(false));
