@@ -5,8 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre Nós - Cafeteria</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
     <style>
-        /* Reset e estilos base */
         * {
             margin: 0;
             padding: 0;
@@ -20,14 +24,12 @@
             line-height: 1.6;
         }
 
-        /* Container principal */
         .about-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* Cabeçalho */
         .about-header {
             text-align: center;
             padding: 40px 0;
@@ -59,7 +61,6 @@
             margin: 20px auto;
         }
 
-        /* Seções */
         .about-section {
             display: flex;
             flex-wrap: wrap;
@@ -107,7 +108,54 @@
             font-size: 1.05rem;
         }
 
-        /* Equipe */
+        .values-section {
+            background-color: #5d4037;
+            color: white;
+            padding: 80px 0;
+            margin: 60px 0;
+        }
+
+        .values-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .values-container h2 {
+            font-size: 2rem;
+            margin-bottom: 50px;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .value-item {
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .value-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .value-item i {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ffcc80;
+        }
+
+        .value-item h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
         .team-section {
             padding: 60px 0;
             text-align: center;
@@ -163,264 +211,6 @@
             font-style: italic;
         }
 
-        /* Valores */
-        .values-section {
-            background-color: #5d4037;
-            color: white;
-            padding: 80px 0;
-            margin: 60px 0;
-        }
-
-        .values-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .values-container h2 {
-            font-size: 2rem;
-            margin-bottom: 50px;
-        }
-
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .value-item {
-            padding: 30px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .value-item:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .value-item i {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #ffcc80;
-        }
-
-        .value-item h3 {
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        /* ===== SEÇÃO DE SUGESTÕES ===== */
-        .suggestions-section {
-            background: linear-gradient(135deg, #8d6e63 0%, #6d4c41 100%);
-            padding: 80px 0;
-            margin: 60px 0;
-            border-radius: 15px;
-            color: white;
-        }
-
-        .suggestions-container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .suggestions-container h2 {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-            color: #ffcc80;
-        }
-
-        .suggestions-container p {
-            font-size: 1.1rem;
-            margin-bottom: 40px;
-            opacity: 0.9;
-        }
-
-        .suggestion-form {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            text-align: left;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #5d4037;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: #8d6e63;
-            box-shadow: 0 0 0 3px rgba(141, 110, 99, 0.1);
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-btn {
-            background: linear-gradient(135deg, #8d6e63 0%, #6d4c41 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .submit-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Modal de confirmação */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal-content i {
-            font-size: 4rem;
-            color: #4caf50;
-            margin-bottom: 20px;
-        }
-
-        .modal-content h3 {
-            color: #5d4037;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-
-        .modal-content p {
-            color: #666;
-            margin-bottom: 25px;
-        }
-
-        .modal-btn {
-            background: #8d6e63;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background 0.3s ease;
-        }
-
-        .modal-btn:hover {
-            background: #6d4c41;
-        }
-
-        /* Sugestões recentes */
-        .recent-suggestions {
-            margin-top: 40px;
-            text-align: left;
-        }
-
-        .recent-suggestions h3 {
-            color: #ffcc80;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .suggestion-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            border-left: 4px solid #ffcc80;
-        }
-
-        .suggestion-card h4 {
-            color: white;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-        }
-
-        .suggestion-card p {
-            margin: 0;
-            opacity: 0.9;
-            font-size: 0.95rem;
-        }
-
-        .suggestion-meta {
-            font-size: 0.85rem;
-            opacity: 0.7;
-            margin-top: 8px;
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-
-            .about-section,
-            .about-section:nth-child(even) {
-                flex-direction: column;
-            }
-
-            .about-header h1 {
-                font-size: 2rem;
-            }
-
-            .team-grid,
-            .values-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .suggestion-form {
-                padding: 25px;
-            }
-
-            .suggestions-container h2 {
-                font-size: 1.8rem;
-            }
-        }
-
-        /* Botão de voltar */
         .back-button {
             display: inline-block;
             margin-top: 40px;
@@ -436,10 +226,200 @@
         .back-button:hover {
             background-color: #6d4c41;
         }
+
+        /* Chat widget clean */
+        .chat-fab {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            width: 58px;
+            height: 58px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8d6e63, #6d4c41);
+            color: white;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+            cursor: pointer;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .chat-fab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-widget {
+            position: fixed;
+            right: 22px;
+            bottom: 92px;
+            width: 360px;
+            max-width: calc(100vw - 32px);
+            background: #fff;
+            border: 1px solid rgba(141, 110, 99, 0.14);
+            border-radius: 18px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.14);
+            overflow: hidden;
+            z-index: 1000;
+            display: none;
+        }
+
+        .chat-widget.open {
+            display: block;
+        }
+
+        .chat-widget-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, #8d6e63, #6d4c41);
+            color: white;
+        }
+
+        .chat-widget-header .title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .chat-widget-header .title i {
+            font-size: 1rem;
+        }
+
+        .chat-close {
+            border: none;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .chat-body {
+            padding: 14px;
+            background: #fbf8f5;
+        }
+
+        .chat-box {
+            height: 320px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-right: 4px;
+        }
+
+        .message {
+            max-width: 82%;
+            padding: 10px 12px;
+            border-radius: 14px;
+            line-height: 1.45;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            font-size: 0.96rem;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: #8d6e63;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.bot {
+            align-self: flex-start;
+            background: #efe7e2;
+            color: #3e2723;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.system {
+            align-self: center;
+            background: #fff3cd;
+            color: #7a5b00;
+            border: 1px solid #ffe69c;
+            max-width: 92%;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            border: 1px solid #d8c9c1;
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-size: 0.98rem;
+            outline: none;
+            background: white;
+        }
+
+        .chat-input input:focus {
+            border-color: #8d6e63;
+            box-shadow: 0 0 0 3px rgba(141, 110, 99, 0.1);
+        }
+
+        .chat-input button {
+            border: none;
+            border-radius: 12px;
+            padding: 0 16px;
+            min-width: 92px;
+            background: linear-gradient(135deg, #8d6e63, #6d4c41);
+            color: white;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .chat-input button:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        .chat-hint {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #8a7a73;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .about-section,
+            .about-section:nth-child(even) {
+                flex-direction: column;
+            }
+
+            .about-header h1 {
+                font-size: 2rem;
+            }
+
+            .team-grid,
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-widget {
+                right: 12px;
+                left: 12px;
+                width: auto;
+                bottom: 84px;
+            }
+
+            .chat-box {
+                height: 280px;
+            }
+        }
     </style>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
 
 <body>
@@ -448,104 +428,36 @@
     <div class="about-container">
         <div class="about-header">
             <h1>Sobre Nós</h1>
-            <p>Desde 2010, temos servimos os melhores cafés com paixão e dedicação. Nossa missão é transformar cada
-                xícara em uma experiência memorável.</p>
+            <p>Desde 2010, temos servido os melhores cafés com paixão e dedicação. Nossa missão é transformar cada xícara em uma experiência memorável.</p>
         </div>
 
         <div class="about-section">
             <div class="about-image">
-                <div
-                    style="background-color: #8d6e63; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
-                    <a th:href="@{/about}"><img th:src="@{/images_homapage/cafeteria1.jpg}"></a>
+                <div style="background-color: #8d6e63; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                    <a th:href="@{/about}">
+                        <img th:src="@{/images_homapage/cafeteria1.jpg}" alt="Cafeteria">
+                    </a>
                 </div>
             </div>
             <div class="about-content">
                 <h2>Nossa História</h2>
-                <p>Tudo começou em um pequeno espaço no centro da cidade, onde nosso fundador, Carlos Silva, decidiu
-                    compartilhar sua paixão por cafés especiais. Com apenas uma máquina de café e muita determinação,
-                    ele começou a servir bebidas que rapidamente conquistaram o paladar da comunidade.</p>
-                <p>Hoje, após mais de uma década, mantemos o mesmo compromisso com a qualidade e o atendimento
-                    personalizado que nos tornou referência na região.</p>
+                <p>Tudo começou em um pequeno espaço no centro da cidade, onde nosso fundador, Carlos Silva, decidiu compartilhar sua paixão por cafés especiais. Com apenas uma máquina de café e muita determinação, ele começou a servir bebidas que rapidamente conquistaram o paladar da comunidade.</p>
+                <p>Hoje, após mais de uma década, mantemos o mesmo compromisso com a qualidade e o atendimento personalizado que nos tornou referência na região.</p>
             </div>
         </div>
 
         <div class="about-section">
             <div class="about-image">
-                <div
-                    style="background-color: #6d4c41; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
-                    <a th:href="@{/about}"><img th:src="@{/images_homapage/grao.jpg}"></a>
+                <div style="background-color: #6d4c41; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                    <a th:href="@{/about}">
+                        <img th:src="@{/images_homapage/grao.jpg}" alt="Grãos de café">
+                    </a>
                 </div>
             </div>
             <div class="about-content">
                 <h2>Nossa Filosofia</h2>
-                <p>Acreditamos que um bom café vai além da bebida - é sobre criar momentos especiais, conexões genuínas
-                    e experiências que aquecem a alma.</p>
-                <p>Por isso, selecionamos cuidadosamente os melhores grãos de produtores sustentáveis, torramos
-                    artesanalmente e preparamos cada xícara com atenção aos detalhes.</p>
-            </div>
-        </div>
-
-        <!-- ===== NOVA SEÇÃO: SUGESTÕES DE PRODUTOS ===== -->
-        <div class="suggestions-section">
-            <div class="suggestions-container">
-                <h2><i class="fas fa-lightbulb me-2"></i>Sugira um Novo Produto</h2>
-                <p>Queremos ouvir você! Compartilhe sua ideia para um novo produto e ajude-nos a melhorar ainda mais.</p>
-                
-                <div class="suggestion-form">
-                    <form id="suggestionForm">
-                        <div class="form-group">
-                            <label for="productName"><i class="fas fa-tag me-2"></i>Nome do Produto</label>
-                            <input type="text" id="productName" class="form-control" placeholder="Ex: Cappuccino de Avelã" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="productCategory"><i class="fas fa-list me-2"></i>Categoria</label>
-                            <select id="productCategory" class="form-control" required>
-                                <option value="">Selecione uma categoria</option>
-                                <option value="bebidas">Bebidas Quentes</option>
-                                <option value="bebidas-frias">Bebidas Frias</option>
-                                <option value="doces">Doces e Sobremesas</option>
-                                <option value="salgados">Salgados</option>
-                                <option value="especiais">Produtos Especiais</option>
-                                <option value="outros">Outros</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="productDescription"><i class="fas fa-edit me-2"></i>Descrição da Ideia</label>
-                            <textarea id="productDescription" class="form-control" placeholder="Descreva sua ideia em detalhes. Ingredientes, modo de preparo, por que seria um sucesso..." required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="customerName"><i class="fas fa-user me-2"></i>Seu Nome (opcional)</label>
-                            <input type="text" id="customerName" class="form-control" placeholder="Como gostaria de ser chamado">
-                        </div>
-                        
-                        <button type="submit" class="submit-btn">
-                            <i class="fas fa-paper-plane me-2"></i>Enviar Sugestão
-                        </button>
-                    </form>
-                </div>
-
-                
-                <div class="recent-suggestions">
-                    <h3><i class="fas fa-comments me-2"></i>Sugestões Recentes da Comunidade</h3>
-                    <div class="suggestion-card">
-                        <h4>Frappuccino de Matcha com Red Berry</h4>
-                        <p>Um frappuccino cremoso de matcha com uma camada de frutas vermelhas no fundo e cobertura de chantilly.</p>
-                        <div class="suggestion-meta">Enviado por Maria • Há 2 dias</div>
-                    </div>
-                    <div class="suggestion-card">
-                        <h4>Croissant de Doce de Leite com Nozes</h4>
-                        <p>Croissant recheado com doce de leite artesanal e pedaços de nozes, finalizado com açúcar de confeiteiro.</p>
-                        <div class="suggestion-meta">Enviado por João • Há 5 dias</div>
-                    </div>
-                    <div class="suggestion-card">
-                        <h4>Chá Gelado de Pêssego com Hortelã</h4>
-                        <p>Chá verde gelado com infusão natural de pêssego e folhas de hortelã, pouco açúcar.</p>
-                        <div class="suggestion-meta">Enviado por Ana • Há 1 semana</div>
-                    </div>
-                </div>
+                <p>Acreditamos que um bom café vai além da bebida - é sobre criar momentos especiais, conexões genuínas e experiências que aquecem a alma.</p>
+                <p>Por isso, selecionamos cuidadosamente os melhores grãos de produtores sustentáveis, torramos artesanalmente e preparamos cada xícara com atenção aos detalhes.</p>
             </div>
         </div>
 
@@ -556,8 +468,7 @@
                     <div class="value-item">
                         <i class="fas fa-seedling"></i>
                         <h3>Sustentabilidade</h3>
-                        <p>Trabalhamos com produtores que praticam agricultura sustentável e respeitam o meio ambiente.
-                        </p>
+                        <p>Trabalhamos com produtores que praticam agricultura sustentável e respeitam o meio ambiente.</p>
                     </div>
                     <div class="value-item">
                         <i class="fas fa-heart"></i>
@@ -567,8 +478,7 @@
                     <div class="value-item">
                         <i class="fas fa-users"></i>
                         <h3>Comunidade</h3>
-                        <p>Valorizamos as pessoas que fazem parte da nossa história - clientes, colaboradores e
-                            fornecedores.</p>
+                        <p>Valorizamos as pessoas que fazem parte da nossa história - clientes, colaboradores e fornecedores.</p>
                     </div>
                 </div>
             </div>
@@ -616,85 +526,155 @@
             </div>
         </div>
 
-        <!-- Modal de Confirmação -->
-        <div id="confirmationModal" class="modal">
-            <div class="modal-content">
-                <i class="fas fa-check-circle"></i>
-                <h3>Sugestão Enviada!</h3>
-                <p>Obrigado por compartilhar sua ideia conosco. Nossa equipe analisará sua sugestão em breve.</p>
-                <button class="modal-btn" onclick="closeModal()">Continuar</button>
-            </div>
-        </div>
-
         <div style="text-align: center; margin: 40px 0;">
             <a th:href="@{/}" class="back-button">Voltar para o Início</a>
         </div>
     </div>
 
+    <button class="chat-fab" id="chatFab" type="button" aria-label="Abrir chat">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+
+    <div class="chat-widget" id="chatWidget" aria-hidden="true">
+        <div class="chat-widget-header">
+            <div class="title">
+                <i class="fas fa-mug-hot"></i>
+                <span>Assistente</span>
+            </div>
+            <button class="chat-close" type="button" id="chatClose" aria-label="Fechar chat">
+                <i class="fas fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="chat-body">
+            <div class="chat-box" id="chatBox">
+                <div class="message bot">Olá! Posso te ajudar a escolher algo delicioso hoje?</div>
+            </div>
+
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Digite sua mensagem..." autocomplete="off">
+                <button type="button" id="sendButton" onclick="sendMessage()">Enviar</button>
+            </div>
+
+            <div class="chat-hint">Clique no botão para abrir ou fechar o chat.</div>
+        </div>
+    </div>
+
     <script>
-        // Função para mostrar o modal
-        function showModal() {
-            document.getElementById('confirmationModal').style.display = 'flex';
-        }
+        const N8N_WEBHOOK_URL = 'http://localhost:5678/webhook/chat-ia';
+     
 
-        // Função para fechar o modal
-        function closeModal() {
-            document.getElementById('confirmationModal').style.display = 'none';
-        }
+        const chatFab = document.getElementById('chatFab');
+        const chatWidget = document.getElementById('chatWidget');
+        const chatClose = document.getElementById('chatClose');
 
-        // Fechar modal ao clicar fora
-        window.onclick = function(event) {
-            const modal = document.getElementById('confirmationModal');
-            if (event.target === modal) {
-                closeModal();
+        function toggleChat(open) {
+            const isOpen = typeof open === 'boolean' ? open : !chatWidget.classList.contains('open');
+            chatWidget.classList.toggle('open', isOpen);
+            chatWidget.setAttribute('aria-hidden', String(!isOpen));
+            if (isOpen) {
+                setTimeout(() => document.getElementById('userInput').focus(), 50);
             }
         }
 
-        // Manipulação do formulário
-        document.getElementById('suggestionForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            console.log('Sugestão enviada:', {
-                nome: document.getElementById('productName').value,
-                categoria: document.getElementById('productCategory').value,
-                descricao: document.getElementById('productDescription').value,
-                cliente: document.getElementById('customerName').value
-            });
+        chatFab.addEventListener('click', () => toggleChat());
+        chatClose.addEventListener('click', () => toggleChat(false));
 
-            // Mostrar modal de confirmação
-            showModal();
-            
-            // Limpar formulário
-            this.reset();
-            
-            setTimeout(() => {
-                const recentSuggestions = document.querySelector('.recent-suggestions');
-                const newSuggestion = document.createElement('div');
-                newSuggestion.className = 'suggestion-card';
-                newSuggestion.innerHTML = `
-                    <h4>${document.getElementById('productName').value}</h4>
-                    <p>${document.getElementById('productDescription').value}</p>
-                    <div class="suggestion-meta">Enviado agora • Aguardando análise</div>
-                `;
-                recentSuggestions.appendChild(newSuggestion);
-            }, 2000);
+        function generateUserId() {
+            const key = 'cafeteria_chat_user_id';
+            let userId = localStorage.getItem(key);
+
+            if (!userId) {
+                if (window.crypto && crypto.randomUUID) {
+                    userId = crypto.randomUUID();
+                } else {
+                    userId = 'user-' + Date.now() + '-' + Math.floor(Math.random() * 1000000);
+                }
+                localStorage.setItem(key, userId);
+            }
+
+            return userId;
+        }
+
+        function addMessage(text, sender) {
+            const chatBox = document.getElementById('chatBox');
+            const message = document.createElement('div');
+            message.className = `message ${sender}`;
+            message.textContent = text;
+            chatBox.appendChild(message);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            return message;
+        }
+
+        function setLoading(isLoading) {
+            const button = document.getElementById('sendButton');
+            const input = document.getElementById('userInput');
+            button.disabled = isLoading;
+            input.disabled = isLoading;
+            button.textContent = isLoading ? 'Enviando...' : 'Enviar';
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            addMessage(message, 'user');
+            input.value = '';
+
+            const typingMessage = addMessage('Digitando...', 'bot');
+            setLoading(true);
+
+            try {
+                const response = await fetch(N8N_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        userId: generateUserId()
+                    })
+                });
+
+                let data = null;
+                const contentType = response.headers.get('content-type') || '';
+
+                if (contentType.includes('application/json')) {
+                    data = await response.json();
+                } else {
+                    const text = await response.text();
+                    data = { output: text };
+                }
+
+                typingMessage.remove();
+
+                const botReply =
+                    data?.output ??
+                    data?.response ??
+                    data?.text ??
+                    data?.message ??
+                    (typeof data === 'string' ? data : null) ??
+                    'Não consegui ler a resposta da IA.';
+
+                addMessage(botReply, 'bot');
+            } catch (error) {
+                typingMessage.remove();
+                addMessage('Erro ao conectar com a IA. Verifique o n8n e a URL do webhook.', 'system');
+                console.error(error);
+            } finally {
+                setLoading(false);
+                input.focus();
+            }
+        }
+
+        document.getElementById('userInput').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                sendMessage();
+            }
         });
-
-        // Efeito de digitação para o placeholder da descrição
-        const descriptionTextarea = document.getElementById('productDescription');
-        const placeholderText = "Descreva sua ideia em detalhes. Ingredientes, modo de preparo, por que seria um sucesso...";
-        let i = 0;
-        
-        function typeWriter() {
-            if (i < placeholderText.length) {
-                descriptionTextarea.placeholder += placeholderText.charAt(i);
-                i++;
-                setTimeout(typeWriter, 50);
-            }
-        }
-
-        // Iniciar efeito quando a página carregar
-        window.addEventListener('load', typeWriter);
     </script>
 </body>
+
 </html>
