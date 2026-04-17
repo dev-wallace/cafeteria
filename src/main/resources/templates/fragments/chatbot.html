@@ -1,0 +1,30 @@
+<div th:fragment="chatbot">
+    <button class="chat-fab" id="chatFab" type="button" aria-label="Abrir chat">
+        <i class="fas fa-mug-hot"></i>
+    </button>
+
+    <div class="chat-widget" id="chatWidget" aria-hidden="true">
+        <div class="chat-widget-header">
+            <div class="title">
+                <i class="fas fa-mug-hot"></i>
+                <span>Assistente</span>
+            </div>
+            <button class="chat-close" type="button" id="chatClose" aria-label="Fechar chat">
+                <i class="fas fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="chat-body">
+            <div class="chat-box" id="chatBox">
+                <div class="message bot">Olá! Posso te ajudar a escolher algo delicioso hoje?</div>
+            </div>
+
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Digite sua mensagem..." autocomplete="off">
+                <button type="button" id="sendButton">Enviar</button>
+            </div>
+
+            <div class="chat-hint">Clique no botão para abrir ou fechar o chat.</div>
+        </div>
+    </div>
+</div>
